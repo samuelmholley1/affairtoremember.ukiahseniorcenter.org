@@ -19,8 +19,8 @@
 - [x] Create and Run Task
 	<!-- Created dev task for Next.js -->
 
-- [ ] Launch the Project
+- [x] Launch the Project
 	<!-- Launch development server -->
 
-- [ ] Ensure Documentation is Complete
-	<!-- Update README and finalize documentation -->
+- [x] Ensure Documentation is Complete
+	<!-- Updated README and finalized documentation -->
