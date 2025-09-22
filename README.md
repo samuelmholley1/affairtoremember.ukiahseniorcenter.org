@@ -1,36 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# An Affair to Remember - Ukiah Senior Center
+
+This is a [Next.js](https://nextjs.org) project for the Ukiah Senior Center's annual fundraising event "An Affair to Remember". The website provides forms for auction donations and table sponsorships to support vital senior services in the community.
+
+## Live Website
+
+🌐 **URL**: [affairtoremember.ukiahseniorcenter.org](http://affairtoremember.ukiahseniorcenter.org)
+
+## Repository
+
+📦 **GitHub**: [samuelmholley1/affairtoremember.ukiahseniorcenter.org](https://github.com/samuelmholley1/affairtoremember.ukiahseniorcenter.org)
+
+## Features
+
+- **Homepage**: Event information and navigation
+- **Auction Donations Form** (`/auction-donations`): For community members to donate items for the fundraising auction
+- **Table Sponsors Form** (`/table-sponsors`): For businesses and organizations to sponsor tables at the event
+- **Responsive Design**: Built with Tailwind CSS for mobile and desktop compatibility
+- **TypeScript**: Type-safe development with full TypeScript support
+- **Modern Stack**: Next.js 15 with App Router and React 19
+
+## Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Package Manager**: Yarn Berry (with node_modules)
+- **Linting**: ESLint
+- **Version Control**: Git + GitHub
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18.17 or later
+- Yarn (Berry) or npm
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/samuelmholley1/affairtoremember.ukiahseniorcenter.org.git
+   cd affairtoremember.ukiahseniorcenter.org
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   yarn install
+   ```
+
+3. **Run the development server**:
+   ```bash
+   yarn dev
+   ```
+
+4. **Open your browser**:
+   Navigate to [http://localhost:3000](http://localhost:3000) to see the application.
+
+### Available Scripts
+
+- `yarn dev` - Starts the development server
+- `yarn build` - Creates an optimized production build
+- `yarn start` - Starts the production server
+- `yarn lint` - Runs ESLint for code quality checks
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── auction-donations/     # Auction donation form page
+│   │   └── page.tsx
+│   ├── table-sponsors/        # Table sponsorship form page
+│   │   └── page.tsx
+│   ├── layout.tsx            # Root layout component
+│   ├── page.tsx              # Homepage
+│   └── globals.css           # Global styles
+├── components/               # Reusable React components (future)
+└── lib/                      # Utility functions (future)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Forms
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Auction Donations (`/auction-donations`)
+- Donor information collection
+- Item description and estimated value
+- Pickup assistance options
+- Additional notes and special requirements
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Table Sponsors (`/table-sponsors`)
+- Organization/sponsor details
+- Sponsorship level selection (Bronze, Silver, Gold, Platinum)
+- Table quantity and seating preferences
+- Marketing materials coordination
+- Special requests handling
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+This project is designed to be deployed on platforms like:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Vercel** (recommended for Next.js)
+- **Netlify**
+- **AWS Amplify**
+- **Digital Ocean App Platform**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For Vercel deployment:
+```bash
+npm i -g vercel
+vercel
+```
 
-## Deploy on Vercel
+## Configuration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Yarn Berry Setup
+The project uses Yarn Berry with `node_modules` instead of Plug'n'Play (PnP) for better compatibility:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```yaml
+# .yarnrc.yml
+nodeLinker: node-modules
+```
+
+### Environment Variables (Future)
+For production deployment, you may need to configure:
+- `NEXT_PUBLIC_SITE_URL` - The production URL
+- Database connection strings (when backend is added)
+- Email service API keys (for form submissions)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## About the Ukiah Senior Center
+
+The Ukiah Senior Center provides essential services to the senior community including:
+- Nutritious meal programs
+- Social activities and community engagement
+- Health and wellness programs
+- Transportation services
+- Support services for independent living
+
+"An Affair to Remember" is the annual fundraising event that helps sustain these vital community services.
+
+## License
+
+This project is created for the Ukiah Senior Center's fundraising event. All rights reserved.
+
+## Contact
+
+For questions about the event or this website, please contact the Ukiah Senior Center.
+
+---
+
+Built with ❤️ for the Ukiah Senior Center community
