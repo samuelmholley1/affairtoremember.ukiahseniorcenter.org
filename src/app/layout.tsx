@@ -16,6 +16,21 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "An Affair to Remember - Ukiah Senior Center",
   description: "Annual fundraising event for the Ukiah Senior Center. Donate auction items or sponsor a table to support vital senior services in our community.",
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    other: [
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
@@ -38,6 +53,17 @@ export default function RootLayout({
             priority
           />
         </header>
+        
+        <div className="flex justify-center py-8">
+          <Image
+            src="/logo.png"
+            alt="Ukiah Senior Center Logo"
+            width={120}
+            height={120}
+            className="h-auto"
+          />
+        </div>
+        
         {children}
       </body>
     </html>
