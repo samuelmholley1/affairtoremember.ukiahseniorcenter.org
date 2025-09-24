@@ -33,17 +33,17 @@ export default function Home() {
 
             <div className="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                🍽️ Table Sponsors
+                � Tickets & Sponsorships
               </h2>
               <p className="text-gray-600 mb-6">
-                Sponsor a table and enjoy a wonderful evening while showing your support 
-                for the Ukiah Senior Center. Multiple sponsorship levels available.
+                Purchase tickets for "A Night at the Speakeasy" or become a sponsor with multiple 
+                levels available. Support the Ukiah Senior Center while enjoying an elegant evening.
               </p>
               <Link
                 href="/table-sponsors"
                 className="inline-block bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition-colors"
               >
-                Sponsor a Table
+                Get Tickets & Sponsor
               </Link>
             </div>
           </div>
@@ -61,11 +61,11 @@ export default function Home() {
             <div className="grid sm:grid-cols-3 gap-4 text-center">
               <div>
                 <h3 className="font-semibold text-gray-900">Date</h3>
-                <p className="text-gray-600">Coming Soon</p>
+                <p className="text-gray-600">Saturday, April 11, 2026</p>
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Time</h3>
-                <p className="text-gray-600">6:00 PM</p>
+                <h3 className="font-semibold text-gray-900">Theme</h3>
+                <p className="text-gray-600">A Night at the Speakeasy</p>
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900">Location</h3>
