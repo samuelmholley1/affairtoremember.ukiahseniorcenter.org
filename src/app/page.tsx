@@ -36,7 +36,7 @@ export default function Home() {
                 � Tickets & Sponsorships
               </h2>
               <p className="text-gray-600 mb-6">
-                Purchase tickets for "A Night at the Speakeasy" or become a sponsor with multiple 
+                Purchase tickets for &quot;A Night at the Speakeasy&quot; or become a sponsor with multiple 
                 levels available. Support the Ukiah Senior Center while enjoying an elegant evening.
               </p>
               <Link

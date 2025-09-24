@@ -136,7 +136,7 @@ export default function SponsorshipForm() {
     return total
   }
 
-  const handleInputChange = (field: keyof FormData, value: any) => {
+  const handleInputChange = (field: keyof FormData, value: string | number | 'credit' | 'check' | 'pickup' | 'willcall') => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -169,7 +169,7 @@ export default function SponsorshipForm() {
             Support the Ukiah Senior Center
           </h1>
           <p className="text-xl text-gray-600">
-            Purchase Tickets and/or Become a Sponsor for 'An Affair to Remember' on Saturday, April 11, 2026.
+            Purchase Tickets and/or Become a Sponsor for &apos;An Affair to Remember&apos; on Saturday, April 11, 2026.
           </p>
         </div>
 
@@ -466,7 +466,7 @@ export default function SponsorshipForm() {
                 <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">CHECK</h3>
                   <p className="text-sm text-gray-700">
-                    Please make checks payable to <strong>Ukiah Senior Center</strong> and write <strong>"AATR"</strong> in the memo. 
+                    Please make checks payable to <strong>Ukiah Senior Center</strong> and write <strong>&quot;AATR&quot;</strong> in the memo. 
                     Mail this form with payment to:<br/><br/>
                     <strong>Ukiah Senior Center</strong><br/>
                     Attn: AATR<br/>
