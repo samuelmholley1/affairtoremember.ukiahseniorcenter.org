@@ -19,14 +19,14 @@ interface FormData {
   phone: string
   email: string
   paymentMethod: 'credit' | 'check'
-  creditCard: {
-    number: string
-    expiry: string
-    cvc: string
-    nameOnCard: string
-    zip: string
-  }
   ticketDelivery: 'pickup' | 'willcall'
+}
+
+interface SubmissionState {
+  isSubmitting: boolean
+  isSubmitted: boolean
+  error: string | null
+  submissionId: string | null
 }
 
 const sponsorshipLevels: SponsorshipLevel[] = [
@@ -88,15 +88,15 @@ export default function SponsorshipForm() {
     address: '',
     phone: '',
     email: '',
-    paymentMethod: 'credit',
-    creditCard: {
-      number: '',
-      expiry: '',
-      cvc: '',
-      nameOnCard: '',
-      zip: ''
-    },
+    paymentMethod: 'check',
     ticketDelivery: 'pickup'
+  })
+
+  const [submissionState, setSubmissionState] = useState<SubmissionState>({
+    isSubmitting: false,
+    isSubmitted: false,
+    error: null,
+    submissionId: null
   })
 
   // Check if current date is after 3/28/26 for ticket pricing
@@ -143,21 +143,146 @@ export default function SponsorshipForm() {
     }))
   }
 
-  const handleCreditCardChange = (field: keyof FormData['creditCard'], value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      creditCard: {
-        ...prev.creditCard,
-        [field]: value
-      }
-    }))
+
+
+  const validateForm = () => {
+    if (!formData.name || !formData.email || !formData.phone || !formData.address) {
+      setSubmissionState({
+        isSubmitting: false,
+        isSubmitted: false,
+        error: 'Please fill in all required fields (Name, Email, Phone, Address)',
+        submissionId: null
+      })
+      return false
+    }
+    return true
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleCheckPayment = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Form validation and submission logic would go here
-    console.log('Form submitted:', formData)
-    alert('Form submitted successfully! (This is a demo - no actual processing)')
+    
+    if (!validateForm()) return
+    
+    setSubmissionState({
+      isSubmitting: true,
+      isSubmitted: false,
+      error: null,
+      submissionId: null
+    })
+
+    try {
+      // Prepare data for Google Sheets (check payment)
+      const submissionData = {
+        ...formData,
+        paymentMethod: 'check',
+        formType: 'table-sponsors',
+        ticketPrice,
+        timestamp: new Date().toISOString(),
+        ipAddress: '',
+        userAgent: navigator.userAgent,
+        referrer: document.referrer
+      }
+
+      const API_URL = process.env.NEXT_PUBLIC_SPONSORSHIP_API_URL || '/api/table-sponsors'
+      
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData)
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        setSubmissionState({
+          isSubmitting: false,
+          isSubmitted: true,
+          error: null,
+          submissionId: result.submissionId
+        })
+      } else {
+        throw new Error(result.message || 'Submission failed')
+      }
+    } catch (error) {
+      console.error('Check payment submission error:', error)
+      setSubmissionState({
+        isSubmitting: false,
+        isSubmitted: false,
+        error: error instanceof Error ? error.message : 'An error occurred while submitting the form',
+        submissionId: null
+      })
+    }
+  }
+
+  const handleCreditCardPayment = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!validateForm()) return
+    
+    // Calculate total for payment
+    const total = calculateTotal()
+    
+    if (total <= 0) {
+      setSubmissionState({
+        isSubmitting: false,
+        isSubmitted: false,
+        error: 'Please select a sponsorship level, tickets, or add a donation before proceeding',
+        submissionId: null
+      })
+      return
+    }
+
+    try {
+      // Save the form data to Google Sheets with pending status
+      const submissionData = {
+        ...formData,
+        paymentMethod: 'credit',
+        formType: 'table-sponsors',
+        ticketPrice,
+        paymentStatus: 'pending-payment',
+        timestamp: new Date().toISOString(),
+        ipAddress: '',
+        userAgent: navigator.userAgent,
+        referrer: document.referrer
+      }
+
+      const API_URL = process.env.NEXT_PUBLIC_SPONSORSHIP_API_URL || '/api/table-sponsors'
+      
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submissionData)
+      })
+
+      const result = await response.json()
+
+      if (result.success) {
+        // For now, show success with instructions to integrate Stripe later
+        setSubmissionState({
+          isSubmitting: false,
+          isSubmitted: true,
+          error: null,
+          submissionId: result.submissionId
+        })
+        
+        // TODO: When Stripe is ready, redirect to Stripe checkout
+        alert(`Order saved! Submission ID: ${result.submissionId}\nTotal: $${total}\n\n(Stripe integration will be added here)`)
+      } else {
+        throw new Error(result.message || 'Submission failed')
+      }
+    } catch (error) {
+      console.error('Credit card payment error:', error)
+      setSubmissionState({
+        isSubmitting: false,
+        isSubmitted: false,
+        error: error instanceof Error ? error.message : 'An error occurred while processing payment',
+        submissionId: null
+      })
+    }
   }
 
   return (
@@ -173,7 +298,51 @@ export default function SponsorshipForm() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-8 space-y-12">
+        {/* Success Message */}
+        {submissionState.isSubmitted && (
+          <div className="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-green-800">
+                  Form Submitted Successfully!
+                </h3>
+                <div className="mt-2 text-sm text-green-700">
+                  <p>Thank you for your submission. Your confirmation ID is: <strong>{submissionState.submissionId}</strong></p>
+                  <p className="mt-1">You should receive a confirmation email shortly. If paying by check, please mail your payment to the address provided above.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Error Message */}
+        {submissionState.error && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <h3 className="text-sm font-medium text-red-800">
+                  Submission Error
+                </h3>
+                <div className="mt-2 text-sm text-red-700">
+                  <p>{submissionState.error}</p>
+                  <p className="mt-1">Please try again or contact us directly if the problem persists.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="bg-white rounded-lg shadow-lg p-8 space-y-12">
           
           {/* Sponsorship Levels Section */}
           <div>
@@ -351,130 +520,47 @@ export default function SponsorshipForm() {
             
             <div className="space-y-6">
               {/* Payment Method Selection */}
-              <div>
-                <div className="flex space-x-6">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      value="credit"
-                      checked={formData.paymentMethod === 'credit'}
-                      onChange={(e) => handleInputChange('paymentMethod', e.target.value as 'credit' | 'check')}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700">Credit Card</span>
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      value="check"
-                      checked={formData.paymentMethod === 'check'}
-                      onChange={(e) => handleInputChange('paymentMethod', e.target.value as 'credit' | 'check')}
-                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                    />
-                    <span className="ml-2 text-sm font-medium text-gray-700">Check</span>
-                  </label>
+              <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Choose Your Payment Method</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-white p-4 rounded-lg border-2 border-gray-200">
+                    <h4 className="font-semibold text-gray-900 mb-2">💳 Credit Card</h4>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Pay securely online with Stripe. You&apos;ll be redirected to complete your payment.
+                    </p>
+                    <ul className="text-xs text-gray-500 space-y-1">
+                      <li>• Instant processing</li>
+                      <li>• Secure encryption</li>
+                      <li>• Immediate confirmation</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="bg-white p-4 rounded-lg border-2 border-gray-200">
+                    <h4 className="font-semibold text-gray-900 mb-2">📄 Check Payment</h4>
+                    <p className="text-sm text-gray-600 mb-3">
+                      Submit your order now and mail your check to complete the transaction.
+                    </p>
+                    <ul className="text-xs text-gray-500 space-y-1">
+                      <li>• No processing fees</li>
+                      <li>• Mail payment to USC</li>
+                      <li>• Include submission ID</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
-              {/* Credit Card Fields */}
-              {formData.paymentMethod === 'credit' && (
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">CREDIT CARD</h3>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Your credit card information will not be retained after transaction.
-                  </p>
-                  
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="md:col-span-2">
-                      <label htmlFor="ccNumber" className="block text-sm font-medium text-gray-700 mb-1">
-                        CC# *
-                      </label>
-                      <input
-                        type="text"
-                        id="ccNumber"
-                        required={formData.paymentMethod === 'credit'}
-                        value={formData.creditCard.number}
-                        onChange={(e) => handleCreditCardChange('number', e.target.value)}
-                        placeholder="1234 5678 9012 3456"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="ccExpiry" className="block text-sm font-medium text-gray-700 mb-1">
-                        Exp (MM/YY) *
-                      </label>
-                      <input
-                        type="text"
-                        id="ccExpiry"
-                        required={formData.paymentMethod === 'credit'}
-                        value={formData.creditCard.expiry}
-                        onChange={(e) => handleCreditCardChange('expiry', e.target.value)}
-                        placeholder="MM/YY"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="ccCvc" className="block text-sm font-medium text-gray-700 mb-1">
-                        CVC *
-                      </label>
-                      <input
-                        type="text"
-                        id="ccCvc"
-                        required={formData.paymentMethod === 'credit'}
-                        value={formData.creditCard.cvc}
-                        onChange={(e) => handleCreditCardChange('cvc', e.target.value)}
-                        placeholder="123"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="ccName" className="block text-sm font-medium text-gray-700 mb-1">
-                        Name on card *
-                      </label>
-                      <input
-                        type="text"
-                        id="ccName"
-                        required={formData.paymentMethod === 'credit'}
-                        value={formData.creditCard.nameOnCard}
-                        onChange={(e) => handleCreditCardChange('nameOnCard', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="ccZip" className="block text-sm font-medium text-gray-700 mb-1">
-                        Zip *
-                      </label>
-                      <input
-                        type="text"
-                        id="ccZip"
-                        required={formData.paymentMethod === 'credit'}
-                        value={formData.creditCard.zip}
-                        onChange={(e) => handleCreditCardChange('zip', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-
               {/* Check Payment Instructions */}
-              {formData.paymentMethod === 'check' && (
-                <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">CHECK</h3>
-                  <p className="text-sm text-gray-700">
-                    Please make checks payable to <strong>Ukiah Senior Center</strong> and write <strong>&quot;AATR&quot;</strong> in the memo. 
-                    Mail this form with payment to:<br/><br/>
-                    <strong>Ukiah Senior Center</strong><br/>
-                    Attn: AATR<br/>
-                    499 Leslie St.<br/>
-                    Ukiah, CA 95482
-                  </p>
-                </div>
-              )}
+              <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">📝 Check Payment Instructions</h3>
+                <p className="text-sm text-gray-700">
+                  If paying by check, make checks payable to <strong>Ukiah Senior Center</strong> and write <strong>&quot;AATR&quot;</strong> in the memo. 
+                  Include your submission ID with your payment and mail to:<br/><br/>
+                  <strong>Ukiah Senior Center</strong><br/>
+                  Attn: AATR<br/>
+                  499 Leslie St.<br/>
+                  Ukiah, CA 95482
+                </p>
+              </div>
             </div>
           </div>
 
@@ -512,14 +598,60 @@ export default function SponsorshipForm() {
               <span className="text-2xl font-bold text-blue-600">${calculateTotal().toLocaleString()}</span>
             </div>
             
-            <button
-              type="submit"
-              className="w-full bg-blue-600 text-white py-3 px-6 rounded-md font-semibold text-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-            >
-              Submit Sponsorship & Ticket Order
-            </button>
+            {/* Two Submit Buttons */}
+            <div className="grid md:grid-cols-2 gap-4">
+              {/* Check Payment Button */}
+              <button
+                type="button"
+                onClick={handleCheckPayment}
+                disabled={submissionState.isSubmitting || submissionState.isSubmitted}
+                className={`w-full py-3 px-6 rounded-md font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors ${
+                  submissionState.isSubmitting || submissionState.isSubmitted
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-green-600 hover:bg-green-700 focus:ring-green-500'
+                } text-white`}
+              >
+                {submissionState.isSubmitting ? (
+                  <span className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Processing...
+                  </span>
+                ) : submissionState.isSubmitted ? (
+                  '✓ Submitted Successfully'
+                ) : (
+                  '📄 Submit & Pay by Check'
+                )}
+              </button>
+
+              {/* Credit Card Payment Button */}
+              <button
+                type="button"
+                onClick={handleCreditCardPayment}
+                disabled={submissionState.isSubmitting || submissionState.isSubmitted || calculateTotal() <= 0}
+                className={`w-full py-3 px-6 rounded-md font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors ${
+                  submissionState.isSubmitting || submissionState.isSubmitted || calculateTotal() <= 0
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-blue-600 hover:bg-blue-700 focus:ring-blue-500'
+                } text-white`}
+              >
+                {calculateTotal() <= 0 ? (
+                  '💳 Select Items to Pay'
+                ) : (
+                  '💳 Pay with Credit Card'
+                )}
+              </button>
+            </div>
+            
+            {calculateTotal() <= 0 && (
+              <p className="text-center text-sm text-gray-500 mt-3">
+                Please select a sponsorship level, tickets, or add a donation to continue
+              </p>
+            )}
           </div>
-        </form>
+        </div>
       </div>
     </div>
   )

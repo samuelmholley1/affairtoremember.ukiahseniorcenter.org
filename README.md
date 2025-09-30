@@ -63,6 +63,29 @@ This is a [Next.js](https://nextjs.org) project for the Ukiah Senior Center's an
 - `yarn start` - Starts the production server
 - `yarn lint` - Runs ESLint for code quality checks
 
+## Google Sheets Integration
+
+The forms are integrated with Google Sheets API using a service account for secure, professional data collection.
+
+### Setup Instructions
+
+1. **Complete Setup**: Follow the detailed guide in `GOOGLE_SHEETS_API_SETUP.md`
+2. **Production Deploy**: See `PRODUCTION_SETUP.md` for deployment instructions
+3. **Environment Variables**: Configure your Google Cloud service account credentials
+
+### API Endpoints
+
+- **Auction Donations**: `/api/auction-donations`
+- **Table Sponsorships**: `/api/table-sponsors`
+
+### Security Features
+
+- ✅ Service account authentication
+- ✅ Credit card data masking
+- ✅ Unique submission tracking
+- ✅ Input validation and error handling
+- ✅ Secure server-side Google Sheets API integration
+
 ## Project Structure
 
 ```
