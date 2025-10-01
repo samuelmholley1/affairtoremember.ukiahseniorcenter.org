@@ -49,20 +49,27 @@ export default function DonationReceiptPage() {
   return (
     <div className="bg-white min-h-screen" style={{ fontFamily: 'Georgia, serif' }}>
       {/* Print-optimized letter layout */}
-      <div className="max-w-[8.5in] mx-auto px-6 py-4 print:px-4 print:py-3">
+      <div className="max-w-[8.5in] mx-auto px-6 py-4 print:px-4 print:py-2">
 
-        {/* Header with Banner */}
-        <div className="text-center mb-6">
-          <img 
-            src="/aatr_banner.png" 
-            alt="An Affair to Remember Banner" 
-            className="w-full max-w-2xl mx-auto mb-4"
-            style={{ maxHeight: '120px', objectFit: 'contain' }}
-          />
+        {/* Header with QR code positioned right */}
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <h1 className="text-xl font-bold text-gray-900 mb-2">Tax Receipt</h1>
+            <p className="text-sm font-semibold">Tax ID# 23-7258082</p>
+          </div>
+          <div className="text-center">
+            <QRCodeDisplay 
+              url={donationUrl}
+              title=""
+              description=""
+              size={80}
+            />
+            <p className="text-xs text-gray-600 mt-1">Log this online</p>
+          </div>
         </div>
 
         {/* Receipt Header */}
-        <div className="flex justify-between items-center mb-6 border-b border-gray-300 pb-3">
+        <div className="flex justify-between items-center mb-4 border-b border-gray-300 pb-2">
           <div className="flex items-center space-x-4">
             <span className="text-sm">Date:</span>
             <div className="border-b border-black w-24 h-5"></div>
@@ -71,11 +78,6 @@ export default function DonationReceiptPage() {
             <span className="text-sm">Donation Value: $</span>
             <div className="border-b border-black w-24 h-5"></div>
           </div>
-        </div>
-
-        <div className="text-center mb-6">
-          <h1 className="text-xl font-bold text-gray-900 mb-2">Tax Receipt</h1>
-          <p className="text-sm font-semibold">Tax ID# 23-7258082</p>
         </div>
 
         {/* Organization Info */}
@@ -159,25 +161,12 @@ export default function DonationReceiptPage() {
               <span className="text-sm">Yes</span>
             </div>
           </div>
-
-          {/* QR Code */}
-          <div className="flex justify-end">
-            <div className="text-center">
-              <QRCodeDisplay 
-                url={donationUrl}
-                title=""
-                description=""
-                size={80}
-              />
-              <p className="text-xs text-gray-600 mt-1">Log this online</p>
-            </div>
-          </div>
         </div>
 
         {/* Footer */}
-        <div className="text-center border-t border-gray-300 pt-3 mt-8">
+        <div className="text-center border-t border-gray-300 pt-2 mt-4">
           <p className="text-xs font-semibold text-gray-700" style={{ letterSpacing: '0.5px' }}>
-            UKIAH SENIOR CENTER ⟡ 499 LESLIE STREET ⟡ UKIAH, CA 95482 ⟡ (707) 462-4343 ⟡ UKIAHSENIORCENTER.ORG
+            UKIAH SENIOR CENTER ⟡ 499 LESLIE ST, UKIAH, CA 95482 ⟡ (707) 462-4343 ⟡ UKIAHSENIORCENTER.ORG
           </p>
         </div>
 
@@ -197,20 +186,30 @@ export default function DonationReceiptPage() {
       <style jsx global>{`
         @media print {
           @page {
-            margin: 0.5in;
+            margin: 0.4in;
             size: letter;
           }
           
           body {
             font-family: Georgia, serif !important;
-            font-size: 11pt;
-            line-height: 1.3;
-            margin: 0;
-            padding: 0;
+            font-size: 9pt;
+            line-height: 1.2;
           }
           
           .fixed {
             display: none !important;
+          }
+          
+          .mb-4 {
+            margin-bottom: 8px !important;
+          }
+          
+          .mb-6 {
+            margin-bottom: 12px !important;
+          }
+          
+          .space-y-6 > * + * {
+            margin-top: 8px !important;
           }
         }
       `}</style>
