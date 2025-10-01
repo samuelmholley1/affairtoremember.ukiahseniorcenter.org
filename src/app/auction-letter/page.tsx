@@ -1,8 +1,31 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import QRCodeDisplay from '../../components/QRCodeDisplay'
 
 export default function AuctionLetterPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
+  // Check authentication on page load
+  useEffect(() => {
+    const auth = document.cookie.includes('adminAuth=true')
+    if (auth) {
+      setIsAuthenticated(true)
+    }
+  }, [])
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (password === 'USC123!') {
+      setIsAuthenticated(true)
+      document.cookie = 'adminAuth=true; path=/; max-age=86400'
+      setError('')
+    } else {
+      setError('Incorrect password')
+    }
+  }
   // Get the base URL for the QR codes (will be the production URL)
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://affairtoremember.ukiahseniorcenter.org'
   
@@ -45,6 +68,57 @@ export default function AuctionLetterPage() {
       alert(`PDF Error: ${error instanceof Error ? error.message : String(error)}`);
     }
   };
+
+  // Brand colors
+  const colors = {
+    navy: '#042148',
+    burgundy: '#9F3833',
+    gray: '#6B7280'
+  }
+
+  // Authentication guard
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center" style={{ fontFamily: 'Georgia, serif' }}>
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <h2 className="mt-6 text-center text-3xl font-bold" style={{ color: colors.navy }}>
+              Protected Page
+            </h2>
+            <p className="mt-2 text-center text-sm" style={{ color: colors.gray }}>
+              Enter password to access auction letter
+            </p>
+          </div>
+          <form className="mt-8 space-y-6" onSubmit={handleLogin}>
+            <div>
+              <input
+                type="password"
+                required
+                className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            {error && (
+              <div className="text-red-600 text-sm text-center">
+                {error}
+              </div>
+            )}
+            <div>
+              <button
+                type="submit"
+                className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"
+                style={{ backgroundColor: colors.navy }}
+              >
+                Access Page
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="bg-white min-h-screen font-serif" style={{ fontFamily: 'Georgia, serif' }}>

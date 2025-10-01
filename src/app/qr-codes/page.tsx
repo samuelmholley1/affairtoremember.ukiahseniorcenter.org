@@ -1,8 +1,31 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import QRCodeDisplay from '../../components/QRCodeDisplay'
 
 export default function QRCodesPage() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
+
+  // Check authentication on page load
+  useEffect(() => {
+    const auth = document.cookie.includes('adminAuth=true')
+    if (auth) {
+      setIsAuthenticated(true)
+    }
+  }, [])
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (password === 'USC123!') {
+      setIsAuthenticated(true)
+      document.cookie = 'adminAuth=true; path=/; max-age=86400'
+      setError('')
+    } else {
+      setError('Incorrect password')
+    }
+  }
   // Get the base URL for the QR codes (will be the production URL)
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://affairtoremember.ukiahseniorcenter.org'
   
@@ -17,6 +40,50 @@ export default function QRCodesPage() {
     white: '#FFFFFF',
     neutralStroke: '#E5E7EB',
     lightGray: '#F9FAFB'
+  }
+
+  // Authentication guard
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center" style={{ fontFamily: 'Georgia, serif' }}>
+        <div className="max-w-md w-full space-y-8">
+          <div>
+            <h2 className="mt-6 text-center text-3xl font-bold" style={{ color: colors.navy }}>
+              Protected Page
+            </h2>
+            <p className="mt-2 text-center text-sm" style={{ color: '#6B7280' }}>
+              Enter password to access QR codes page
+            </p>
+          </div>
+          <form className="mt-8 space-y-6" onSubmit={handleLogin}>
+            <div>
+              <input
+                type="password"
+                required
+                className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            {error && (
+              <div className="text-red-600 text-sm text-center">
+                {error}
+              </div>
+            )}
+            <div>
+              <button
+                type="submit"
+                className="w-full py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white"
+                style={{ backgroundColor: colors.navy }}
+              >
+                Access Page
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )
   }
 
   const handleDownloadPDF = async () => {
@@ -148,7 +215,7 @@ export default function QRCodesPage() {
                     width: '20%',
                     whiteSpace: 'nowrap'
                   }}>
-                    Investment
+                    Price
                   </th>
                   <th style={{
                     color: colors.navy,
@@ -185,7 +252,8 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     whiteSpace: 'nowrap'
                   }}>
-                    $2,500
+                    $2,500<br/>
+                    <span style={{ fontSize: '9px', color: '#6B7280' }}>Card: $2,600</span>
                   </td>
                   <td style={{
                     color: colors.black,
@@ -195,10 +263,10 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     textAlign: 'left'
                   }}>
-                    • Premium table placement<br/>
-                    • Logo on all materials<br/>
-                    • Special recognition<br/>
-                    • Complimentary wine service
+                    • 2 Reserved Tables and 16 tickets<br/>
+                    • 4 bottles of wine<br/>
+                    • Recognition on advertising<br/>
+                    • Media acknowledgement
                   </td>
                 </tr>
                 <tr style={{ pageBreakInside: 'avoid', borderTop: `3px solid ${colors.neutralStroke}` }}>
@@ -222,7 +290,8 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     whiteSpace: 'nowrap'
                   }}>
-                    $1,500
+                    $1,500<br/>
+                    <span style={{ fontSize: '9px', color: '#6B7280' }}>Card: $1,560</span>
                   </td>
                   <td style={{
                     color: colors.black,
@@ -232,10 +301,10 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     textAlign: 'left'
                   }}>
-                    • Preferred table placement<br/>
-                    • Logo on select materials<br/>
-                    • Acknowledgment<br/>
-                    • Wine service
+                    • 1 Reserved table and 8 tickets<br/>
+                    • 2 bottles of wine<br/>
+                    • Recognition on advertising<br/>
+                    • Media acknowledgement
                   </td>
                 </tr>
                 <tr style={{ pageBreakInside: 'avoid', borderTop: `3px solid ${colors.neutralStroke}` }}>
@@ -259,7 +328,8 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     whiteSpace: 'nowrap'
                   }}>
-                    $750
+                    $750<br/>
+                    <span style={{ fontSize: '9px', color: '#6B7280' }}>Card: $780</span>
                   </td>
                   <td style={{
                     color: colors.black,
@@ -269,9 +339,10 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     textAlign: 'left'
                   }}>
-                    • Reserved table seating<br/>
-                    • Program acknowledgment<br/>
-                    • Wine service
+                    • 4 Tickets<br/>
+                    • 1 bottle of wine<br/>
+                    • Reserved seating at a sponsor table<br/>
+                    • Media acknowledgement
                   </td>
                 </tr>
                 <tr style={{ pageBreakInside: 'avoid', borderTop: `3px solid ${colors.neutralStroke}` }}>
@@ -295,7 +366,8 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     whiteSpace: 'nowrap'
                   }}>
-                    $400
+                    $400<br/>
+                    <span style={{ fontSize: '9px', color: '#6B7280' }}>Card: $416</span>
                   </td>
                   <td style={{
                     color: colors.black,
@@ -305,9 +377,10 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     textAlign: 'left'
                   }}>
-                    • Table for 8 guests<br/>
-                    • Program listing<br/>
-                    • Complimentary appetizers
+                    • 2 Tickets<br/>
+                    • 1 bottle of wine<br/>
+                    • Reserved seating at a sponsor table<br/>
+                    • Media acknowledgement
                   </td>
                 </tr>
               </tbody>
