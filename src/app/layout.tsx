@@ -40,16 +40,6 @@ export default function RootLayout({
           />
         </header>
         
-        <div className="flex justify-center py-8">
-          <Image
-            src="/logo.png"
-            alt="Ukiah Senior Center Logo"
-            width={120}
-            height={120}
-            className="h-auto"
-          />
-        </div>
-        
         {children}
       </body>
     </html>

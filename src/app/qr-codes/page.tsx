@@ -11,189 +11,178 @@ export default function QRCodesPage() {
   const sponsorshipUrl = `${baseUrl}/table-sponsors`
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            QR Codes for Easy Access
-          </h1>
-          <p className="text-xl text-gray-600">
-            Scan these codes with your phone to quickly access our donation and sponsorship forms
-          </p>
-        </div>
+    <div className="bg-white min-h-screen font-serif" style={{ fontFamily: 'Georgia, serif' }}>
+      {/* Print-optimized letter layout */}
+      <div className="max-w-[8.5in] mx-auto px-8 py-6 print:px-6 print:py-4">
 
-        {/* QR Codes Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
+        {/* Letter Content */}
+        <div className="mb-6 print:mb-4 text-gray-800 leading-relaxed print:text-sm print:leading-normal">
+          <p className="mb-4">Dear Community Partner,</p>
           
-          {/* Auction Donations QR Code */}
-          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              🎁 Auction Donations
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Donate items, services, or experiences for our auction
-            </p>
-            
-            <QRCodeDisplay 
-              url={auctionUrl}
-              title="Auction Donations"
-              description="Scan to donate auction items"
-            />
-            
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm text-gray-600 font-mono break-all">
-                {auctionUrl}
-              </p>
-            </div>
-          </div>
-
-          {/* Table Sponsorships QR Code */}
-          <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              🎫 Tickets & Sponsorships
-            </h2>
-            <p className="text-gray-600 mb-6">
-              Purchase tickets or become a sponsor for our event
-            </p>
-            
-            <QRCodeDisplay 
-              url={sponsorshipUrl}
-              title="Table Sponsorships"
-              description="Scan for tickets and sponsorships"
-            />
-            
-            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-              <p className="text-sm text-gray-600 font-mono break-all">
-                {sponsorshipUrl}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Sponsorship Table */}
-        <div className="mb-12">
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 text-center">
-              <h2 className="text-3xl font-bold mb-2">Sponsorship & Special Ticket Offers</h2>
-              <p className="text-blue-100">Support the Ukiah Senior Center while enjoying exclusive benefits</p>
-            </div>
-            
-            <div className="p-8">
-              <div className="grid md:grid-cols-2 gap-8">
-                
-                {/* Diamond Sponsor */}
-                <div className="border-2 border-blue-200 rounded-lg p-6 bg-gradient-to-br from-blue-50 to-blue-100">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-blue-900">💎 Diamond Sponsor</h3>
-                    <span className="text-2xl font-bold text-blue-600">$2,500</span>
-                  </div>
-                  <ul className="text-sm text-blue-800 space-y-2">
-                    <li>• 2 tables, seating 16 guests</li>
-                    <li>• 4 bottles of wine</li>
-                    <li>• Recognition on advertising</li>
-                    <li>• Banner at the event</li>
-                    <li>• Media acknowledgement</li>
-                  </ul>
-                </div>
-
-                {/* Platinum Sponsor */}
-                <div className="border-2 border-purple-200 rounded-lg p-6 bg-gradient-to-br from-purple-50 to-purple-100">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-purple-900">🏆 Platinum Sponsor</h3>
-                    <span className="text-2xl font-bold text-purple-600">$1,500</span>
-                  </div>
-                  <ul className="text-sm text-purple-800 space-y-2">
-                    <li>• 1 table, seating 8 guests</li>
-                    <li>• 2 bottles of wine</li>
-                    <li>• Recognition on advertising</li>
-                    <li>• Banner at the event</li>
-                    <li>• Media acknowledgement</li>
-                  </ul>
-                </div>
-
-                {/* Gold Sponsor */}
-                <div className="border-2 border-yellow-200 rounded-lg p-6 bg-gradient-to-br from-yellow-50 to-yellow-100">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-yellow-900">🥇 Gold Sponsor</h3>
-                    <span className="text-2xl font-bold text-yellow-600">$750</span>
-                  </div>
-                  <ul className="text-sm text-yellow-800 space-y-2">
-                    <li>• 4 Tickets</li>
-                    <li>• Reserved seating at a sponsor table</li>
-                    <li>• 1 bottle of wine</li>
-                    <li>• Media acknowledgement</li>
-                  </ul>
-                </div>
-
-                {/* Ruby Sponsor */}
-                <div className="border-2 border-red-200 rounded-lg p-6 bg-gradient-to-br from-red-50 to-red-100">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-red-900">💎 Ruby Sponsor</h3>
-                    <span className="text-2xl font-bold text-red-600">$400</span>
-                  </div>
-                  <ul className="text-sm text-red-800 space-y-2">
-                    <li>• 2 Tickets</li>
-                    <li>• Reserved seating at a sponsor table</li>
-                    <li>• 1 bottle of wine</li>
-                    <li>• Media acknowledgement</li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Tax Deductible Notice */}
-              <div className="mt-8 p-6 bg-green-50 border border-green-200 rounded-lg text-center">
-                <p className="text-green-800 font-semibold mb-2">
-                  Thank you for your consideration. Your donation and/or sponsorship is tax deductible.
-                </p>
-                <p className="text-sm text-green-700">
-                  Ukiah Senior Center is a 501(c)3 charitable organization. 
-                  <br />
-                  <strong>Tax ID #: 23-7258082</strong>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Instructions */}
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">How to Use QR Codes</h3>
-          <div className="grid md:grid-cols-3 gap-6 text-center">
-            <div>
-              <div className="text-3xl mb-2">📱</div>
-              <h4 className="font-semibold text-gray-900 mb-2">Step 1</h4>
-              <p className="text-sm text-gray-600">Open your phone&apos;s camera app</p>
-            </div>
-            <div>
-              <div className="text-3xl mb-2">🎯</div>
-              <h4 className="font-semibold text-gray-900 mb-2">Step 2</h4>
-              <p className="text-sm text-gray-600">Point camera at the QR code</p>
-            </div>
-            <div>
-              <div className="text-3xl mb-2">👆</div>
-              <h4 className="font-semibold text-gray-900 mb-2">Step 3</h4>
-              <p className="text-sm text-gray-600">Tap the notification to open the form</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Print Instructions */}
-        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-blue-900 mb-2">
-            📄 Print-Friendly Version
-          </h3>
-          <p className="text-blue-800 mb-4">
-            This page is optimized for printing. Use your browser&apos;s print function to create physical copies of these QR codes for flyers, posters, or handouts.
+          <p className="mb-4">
+            Ukiah Senior Center is celebrating more than 50 years of serving the greater Ukiah community. In an effort to remain a viable resource, we are gearing up for a Major Fundraising Gala. <strong>Please consider adding this Gala to your philanthropic budget for 2026.</strong>
           </p>
+          
+          <p className="mb-4">
+            The Gala will be held on Saturday evening, April 11, 2026 at Carl Purdy Hall, Redwood Empire Fairgrounds. Proceeds from this event will directly benefit the Ukiah Senior Center programs and activities for seniors and disabled adults.
+          </p>
+          
+          <p className="mb-4">
+            Ukiah Senior Center is dedicated to providing facility-based programs which enhance the quality of life for all Ukiah area seniors and disabled adults, their families and caregivers and to enable seniors to remain as independent as possible for as long as possible. USC depends on donations from our community, grants, and endowments to fund these programs.
+          </p>
+          
+          <p className="mb-4">
+            This Gala will be held at the Redwood Empire Fairgrounds in Carl Purdy Hall. The evening will begin with a no-host, full-service bar and appetizers, prepared by Ukiah Senior Center & Lisa Doster. All available as you explore the live and silent auction items.
+          </p>
+          
+          <p className="mb-4">
+            The dinner menu includes Shrimp Scampi and Tri Tip, Potatoes, Salad and Bread prepared in partnership with Redwood Empire Lions Club. Following dinner a dessert table will be available for your enjoyment. For your dancing pleasure, <strong><em>Decades</em></strong> will be returning this year.
+          </p>
+          
+          <p className="mb-6">
+            To make a donation for the auction, become a sponsor, and RSVP for the gala, please complete the included form and return to Ukiah Senior Center, 499 Leslie St, Ukiah CA or use the QR codes below for easy online access:
+          </p>
+        </div>
+
+        {/* QR Codes Section - Compact for letter */}
+        <div className="mb-6 print:mb-4">
+          <div className="grid grid-cols-2 gap-6 print:gap-4">
+            
+            {/* Auction Donations QR */}
+            <div className="text-center border border-gray-300 p-3 print:p-2">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 print:text-base print:mb-1">
+                Auction Donations
+              </h3>
+              <QRCodeDisplay 
+                url={auctionUrl}
+                title="Auction Donations"
+                description="Scan to donate items"
+                size={100}
+              />
+              <p className="text-xs text-gray-600 mt-1 print:text-[10px]">
+                Scan to donate auction items online
+              </p>
+            </div>
+
+            {/* Sponsorships QR */}
+            <div className="text-center border border-gray-300 p-3 print:p-2">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2 print:text-base print:mb-1">
+                Tickets & Sponsorships
+              </h3>
+              <QRCodeDisplay 
+                url={sponsorshipUrl}
+                title="Sponsorships"
+                description="Scan for tickets and sponsorships"
+                size={100}
+              />
+              <p className="text-xs text-gray-600 mt-1 print:text-[10px]">
+                Scan for tickets and sponsorship levels
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Sponsorship Table - Letter Format */}
+        <div className="mb-6 print:mb-4">
+          <h2 className="text-xl font-bold text-gray-900 text-center mb-4 print:text-lg print:mb-2">
+            Sponsorship & Special Ticket Offers
+          </h2>
+          
+          {/* Compact 2x2 Grid for Print */}
+          <div className="grid grid-cols-2 gap-3 print:gap-2 text-sm print:text-xs">
+            
+            {/* Diamond Sponsor */}
+            <div className="border border-gray-400 p-3 print:p-2">
+              <div className="flex justify-between items-center mb-2 print:mb-1">
+                <strong className="text-blue-800">Diamond Sponsor</strong>
+                <strong className="text-blue-600">$2,500</strong>
+              </div>
+              <div className="text-xs print:text-[10px] text-gray-700 leading-tight">
+                2 tables, seating 16 guests, 4 bottles of wine, recognition on advertising, banner at the event and media acknowledgement
+              </div>
+            </div>
+
+            {/* Platinum Sponsor */}
+            <div className="border border-gray-400 p-3 print:p-2">
+              <div className="flex justify-between items-center mb-2 print:mb-1">
+                <strong className="text-purple-800">Platinum Sponsor</strong>
+                <strong className="text-purple-600">$1,500</strong>
+              </div>
+              <div className="text-xs print:text-[10px] text-gray-700 leading-tight">
+                1 table, seating 8 guests, 2 bottles of wine, recognition on advertising, banner at the event and media acknowledgement
+              </div>
+            </div>
+
+            {/* Gold Sponsor */}
+            <div className="border border-gray-400 p-3 print:p-2">
+              <div className="flex justify-between items-center mb-2 print:mb-1">
+                <strong className="text-yellow-700">Gold Sponsor</strong>
+                <strong className="text-yellow-600">$750</strong>
+              </div>
+              <div className="text-xs print:text-[10px] text-gray-700 leading-tight">
+                4 Tickets, reserved seating at a sponsor table, 1 bottle of wine and media acknowledgement
+              </div>
+            </div>
+
+            {/* Ruby Sponsor */}
+            <div className="border border-gray-400 p-3 print:p-2">
+              <div className="flex justify-between items-center mb-2 print:mb-1">
+                <strong className="text-red-800">Ruby Sponsor</strong>
+                <strong className="text-red-600">$400</strong>
+              </div>
+              <div className="text-xs print:text-[10px] text-gray-700 leading-tight">
+                2 Tickets, reserved seating at a sponsor table, 1 bottle of wine and media acknowledgement
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Tax Information */}
+        <div className="text-center text-sm print:text-xs text-gray-700 border-t border-gray-400 pt-3 print:pt-2">
+          <p className="mb-1">
+            Thank you for your consideration. Your donation and/or sponsorship is tax deductible.
+          </p>
+          <p>
+            Ukiah Senior Center is a 501(c)3 charitable organization. <strong>Tax ID #: 23-7258082</strong>
+          </p>
+        </div>
+
+        {/* Subtle Download PDF button - top right */}
+        <div className="fixed top-4 right-4 print:hidden">
           <button 
-            onClick={() => window.print()}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+            onClick={() => {
+              // Trigger print which allows saving as PDF directly to Downloads
+              window.print();
+            }}
+            className="bg-gray-600 hover:bg-gray-700 text-white text-xs px-3 py-2 rounded-md shadow-sm transition-colors opacity-75 hover:opacity-100"
+            title="Download as PDF"
           >
-            🖨️ Print QR Codes
+            📄 PDF
           </button>
         </div>
       </div>
+
+      {/* Print-specific styles */}
+      <style jsx global>{`
+        @media print {
+          @page {
+            margin: 0.5in;
+            size: letter;
+          }
+          body {
+            -webkit-print-color-adjust: exact;
+            color-adjust: exact;
+            font-family: Georgia, serif !important;
+            font-size: 11pt;
+            line-height: 1.3;
+          }
+          * {
+            -webkit-print-color-adjust: exact;
+            color-adjust: exact;
+            font-family: Georgia, serif !important;
+          }
+        }
+      `}</style>
     </div>
   )
 }
