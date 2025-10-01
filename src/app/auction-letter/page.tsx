@@ -52,70 +52,53 @@ export default function AuctionLetterPage() {
       <div className="max-w-[8.5in] mx-auto px-8 py-6 print:px-6 print:py-4">
 
         {/* Letter Content */}
-        <div className="mb-6 print:mb-4 text-gray-800 leading-relaxed print:text-sm print:leading-normal">
-          <p className="mb-4">Greetings!</p>
+        <div className="mb-4 print:mb-3 text-gray-800 leading-relaxed print:text-sm print:leading-normal">
+          <p className="mb-3">Greetings!</p>
           
-          <p className="mb-4">
+          <p className="mb-3">
             "An Affair to Remember" - the annual Ukiah Senior Center fundraising dinner/dance will be held April 11, 2026, in Carl Purdy Hall at the Ukiah Fairgrounds. This event will feature dinner prepared by the Ukiah Lions Club, the dance music of <strong><em>"Decades"</em></strong>, a full-service no-host bar, appetizers, and live and silent auctions.
           </p>
           
-          <p className="mb-4">
+          <p className="mb-3">
             Your donations to the Live and Silent Auctions will help ensure the success of this important fundraising event. Donations are tax-deductible as the Ukiah Senior Center is a 501(C)3 charitable organization. Please complete the attached Donation Form to establish donation value and ensure the Ukiah Senior Center accurately documents and acknowledges your charitable donation. Please contact the Auction Chair, John McCowen, for additional information or to arrange donation pickup.
           </p>
           
-          <p className="mb-4">
+          <p className="mb-3">
             In appreciation, all Live and Silent auction donors will be thanked and acknowledged for their generosity on the event fundraiser literature. All proceeds from this event will benefit the Ukiah Senior Center and help assure the continuation of the many services and activities provided to our local senior and disabled adult communities.
           </p>
           
-          <p className="mb-4">
+          <p className="mb-3">
             In addition to the Live and Silent Auctions, you may also support the programs and activities of the Ukiah Senior Center by purchasing a Sponsor Table, which includes reserved seating, complimentary wine, and recognition at the event and in event literature. Please contact John McCowen (707-391-1788) for Sponsor Table information.
           </p>
           
-          <p className="mb-4">
+          <p className="mb-3">
             For more than 50 years, the Ukiah Senior Center has enhanced the lives of local seniors and disabled adults. In addition to numerous social, educational, and health-related activities and programs, the Ukiah Senior Center provides local "door-through-door" transportation services, transportation to out-of-area medical appointments, outreach services to vulnerable adults, dine-in and take-out meal service, and much more. Please visit www.ukiahseniorcenter.org for detailed information about the many services provided by the Ukiah Senior Center, including a link to The Scoop, our monthly newsletter and activity calendar.
           </p>
           
-          <p className="mb-6">
+          <p className="mb-4">
             Thank you in advance for your generosity!
           </p>
           
-          <div className="mb-6">
-            <p className="mb-2">Sincerely,</p>
-            <p className="mb-2"><strong>John McCowen</strong></p>
-            <p className="mb-2">John McCowen</p>
-            <p className="mb-2">Auction Chair</p>
-            <p className="mb-4">707-391-1788</p>
-          </div>
-        </div>
-
-        {/* QR Code Section - Just for auction donations */}
-        <div className="mb-6 print:mb-4">
-          <div className="flex justify-center">
-            <div className="text-center border border-gray-300 p-3 print:p-2 max-w-xs">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 print:text-base print:mb-1">
-                Auction Donations
-              </h3>
+          {/* Signature and QR Code side by side */}
+          <div className="flex items-start gap-6 mb-4">
+            <div className="flex-1">
+              <p className="mb-1">Sincerely,</p>
+              <p className="mb-1"><strong>John McCowen</strong></p>
+              <p className="mb-1">John McCowen</p>
+              <p className="mb-1">Auction Chair</p>
+              <p className="mb-0">707-391-1788</p>
+            </div>
+            
+            <div className="text-center">
               <QRCodeDisplay 
                 url={auctionUrl}
-                title="Auction Donations"
-                description="Scan to donate items"
-                size={120}
+                title=""
+                description=""
+                size={80}
               />
-              <p className="text-xs text-gray-600 mt-1 print:text-[10px]">
-                Scan to donate auction items online
-              </p>
+              <p className="text-xs text-gray-600 mt-1">Scan to donate items</p>
             </div>
           </div>
-        </div>
-
-        {/* Tax Information */}
-        <div className="text-center text-sm print:text-xs text-gray-700 border-t border-gray-400 pt-3 print:pt-2">
-          <p className="mb-1">
-            Your donation is tax deductible. Ukiah Senior Center is a 501(c)3 charitable organization.
-          </p>
-          <p>
-            <strong>Tax ID #: 23-7258082</strong>
-          </p>
         </div>
 
         {/* Footer */}
@@ -152,7 +135,7 @@ export default function AuctionLetterPage() {
       <style jsx global>{`
         @media print {
           @page {
-            margin: 0.5in;
+            margin: 0.4in;
             size: letter;
           }
           
@@ -165,10 +148,22 @@ export default function AuctionLetterPage() {
             -webkit-print-color-adjust: exact;
             color-adjust: exact;
             font-family: Georgia, serif !important;
-            font-size: 11pt;
-            line-height: 1.3;
+            font-size: 10pt;
+            line-height: 1.2;
             margin: 0;
             padding: 0;
+          }
+          
+          .mb-4 {
+            margin-bottom: 8px !important;
+          }
+          
+          .mb-3 {
+            margin-bottom: 6px !important;
+          }
+          
+          .mb-1 {
+            margin-bottom: 2px !important;
           }
           
           header {
