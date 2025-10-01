@@ -56,7 +56,7 @@ export default function AuctionLetterPage() {
           <p className="mb-5">Greetings!</p>
           
           <p className="mb-5">
-            "An Affair to Remember" - the annual Ukiah Senior Center fundraising dinner/dance will be held April 11, 2026, in Carl Purdy Hall at the Ukiah Fairgrounds. This event will feature dinner prepared by the Ukiah Lions Club, the dance music of <strong><em>"Decades"</em></strong>, a full-service no-host bar, appetizers, and live and silent auctions.
+            &ldquo;An Affair to Remember&rdquo; - the annual Ukiah Senior Center fundraising dinner/dance will be held April 11, 2026, in Carl Purdy Hall at the Ukiah Fairgrounds. This event will feature dinner prepared by the Ukiah Lions Club, the dance music of <strong><em>&ldquo;Decades&rdquo;</em></strong>, a full-service no-host bar, appetizers, and live and silent auctions.
           </p>
           
           <p className="mb-5">
@@ -72,7 +72,7 @@ export default function AuctionLetterPage() {
           </p>
           
           <p className="mb-5">
-            For more than 50 years, the Ukiah Senior Center has enhanced the lives of local seniors and disabled adults. In addition to numerous social, educational, and health-related activities and programs, the Ukiah Senior Center provides local "door-through-door" transportation services, transportation to out-of-area medical appointments, outreach services to vulnerable adults, dine-in and take-out meal service, and much more. Please visit www.ukiahseniorcenter.org for detailed information about the many services provided by the Ukiah Senior Center, including a link to The Scoop, our monthly newsletter and activity calendar.
+            For more than 50 years, the Ukiah Senior Center has enhanced the lives of local seniors and disabled adults. In addition to numerous social, educational, and health-related activities and programs, the Ukiah Senior Center provides local &ldquo;door-through-door&rdquo; transportation services, transportation to out-of-area medical appointments, outreach services to vulnerable adults, dine-in and take-out meal service, and much more. Please visit www.ukiahseniorcenter.org for detailed information about the many services provided by the Ukiah Senior Center, including a link to The Scoop, our monthly newsletter and activity calendar.
           </p>
           
           <p className="mb-6">
