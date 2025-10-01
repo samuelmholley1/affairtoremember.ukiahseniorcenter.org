@@ -2,12 +2,11 @@
 
 import QRCodeDisplay from '../../components/QRCodeDisplay'
 
-export default function QRCodesPage() {
+export default function AuctionLetterPage() {
   // Get the base URL for the QR codes (will be the production URL)
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://affairtoremember.ukiahseniorcenter.org'
   
   const auctionUrl = `${baseUrl}/auction-donations`
-  const sponsorshipUrl = `${baseUrl}/table-sponsors`
 
   const handleDownloadPDF = async () => {
     try {
@@ -20,7 +19,7 @@ export default function QRCodesPage() {
         },
         body: JSON.stringify({
           url: window.location.href,
-          filename: 'qr-codes-letter.pdf'
+          filename: 'auction-letter.pdf'
         })
       });
 
@@ -33,7 +32,7 @@ export default function QRCodesPage() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'qr-codes-letter.pdf';
+      a.download = 'auction-letter.pdf';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -54,39 +53,45 @@ export default function QRCodesPage() {
 
         {/* Letter Content */}
         <div className="mb-6 print:mb-4 text-gray-800 leading-relaxed print:text-sm print:leading-normal">
-          <p className="mb-4">Dear Community Partner,</p>
+          <p className="mb-4">Greetings!</p>
           
           <p className="mb-4">
-            Ukiah Senior Center is celebrating more than 50 years of serving the greater Ukiah community. In an effort to remain a viable resource, we are gearing up for a Major Fundraising Gala. <strong>Please consider adding this Gala to your philanthropic budget for 2026.</strong>
+            "An Affair to Remember" - the annual Ukiah Senior Center fundraising dinner/dance will be held April 11, 2026, in Carl Purdy Hall at the Ukiah Fairgrounds. This event will feature dinner prepared by the Ukiah Lions Club, the dance music of <strong><em>"Decades"</em></strong>, a full-service no-host bar, appetizers, and live and silent auctions.
           </p>
           
           <p className="mb-4">
-            The Gala will be held on Saturday evening, April 11, 2026 at Carl Purdy Hall, Redwood Empire Fairgrounds. Proceeds from this event will directly benefit the Ukiah Senior Center programs and activities for seniors and disabled adults.
+            Your donations to the Live and Silent Auctions will help ensure the success of this important fundraising event. Donations are tax-deductible as the Ukiah Senior Center is a 501(C)3 charitable organization. Please complete the attached Donation Form to establish donation value and ensure the Ukiah Senior Center accurately documents and acknowledges your charitable donation. Please contact the Auction Chair, John McCowen, for additional information or to arrange donation pickup.
           </p>
           
           <p className="mb-4">
-            Ukiah Senior Center is dedicated to providing facility-based programs which enhance the quality of life for all Ukiah area seniors and disabled adults, their families and caregivers and to enable seniors to remain as independent as possible for as long as possible. USC depends on donations from our community, grants, and endowments to fund these programs.
+            In appreciation, all Live and Silent auction donors will be thanked and acknowledged for their generosity on the event fundraiser literature. All proceeds from this event will benefit the Ukiah Senior Center and help assure the continuation of the many services and activities provided to our local senior and disabled adult communities.
           </p>
           
           <p className="mb-4">
-            This Gala will be held at the Redwood Empire Fairgrounds in Carl Purdy Hall. The evening will begin with a no-host, full-service bar and appetizers, prepared by Ukiah Senior Center & Lisa Doster. All available as you explore the live and silent auction items.
+            In addition to the Live and Silent Auctions, you may also support the programs and activities of the Ukiah Senior Center by purchasing a Sponsor Table, which includes reserved seating, complimentary wine, and recognition at the event and in event literature. Please contact John McCowen (707-391-1788) for Sponsor Table information.
           </p>
           
           <p className="mb-4">
-            The dinner menu includes Shrimp Scampi and Tri Tip, Potatoes, Salad and Bread prepared in partnership with Redwood Empire Lions Club. Following dinner a dessert table will be available for your enjoyment. For your dancing pleasure, <strong><em>Decades</em></strong> will be returning this year.
+            For more than 50 years, the Ukiah Senior Center has enhanced the lives of local seniors and disabled adults. In addition to numerous social, educational, and health-related activities and programs, the Ukiah Senior Center provides local "door-through-door" transportation services, transportation to out-of-area medical appointments, outreach services to vulnerable adults, dine-in and take-out meal service, and much more. Please visit www.ukiahseniorcenter.org for detailed information about the many services provided by the Ukiah Senior Center, including a link to The Scoop, our monthly newsletter and activity calendar.
           </p>
           
           <p className="mb-6">
-            To make a donation for the auction, become a sponsor, and RSVP for the gala, please complete the included form and return to Ukiah Senior Center, 499 Leslie St, Ukiah CA or use the QR codes below for easy online access:
+            Thank you in advance for your generosity!
           </p>
+          
+          <div className="mb-6">
+            <p className="mb-2">Sincerely,</p>
+            <p className="mb-2"><strong>John McCowen</strong></p>
+            <p className="mb-2">John McCowen</p>
+            <p className="mb-2">Auction Chair</p>
+            <p className="mb-4">707-391-1788</p>
+          </div>
         </div>
 
-        {/* QR Codes Section - Compact for letter */}
+        {/* QR Code Section - Just for auction donations */}
         <div className="mb-6 print:mb-4">
-          <div className="grid grid-cols-2 gap-6 print:gap-4">
-            
-            {/* Auction Donations QR */}
-            <div className="text-center border border-gray-300 p-3 print:p-2">
+          <div className="flex justify-center">
+            <div className="text-center border border-gray-300 p-3 print:p-2 max-w-xs">
               <h3 className="text-lg font-semibold text-gray-900 mb-2 print:text-base print:mb-1">
                 Auction Donations
               </h3>
@@ -100,39 +105,7 @@ export default function QRCodesPage() {
                 Scan to donate auction items online
               </p>
             </div>
-
-            {/* Table Sponsors QR */}
-            <div className="text-center border border-gray-300 p-3 print:p-2">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 print:text-base print:mb-1">
-                Table Sponsors
-              </h3>
-              <QRCodeDisplay 
-                url={sponsorshipUrl}
-                title="Table Sponsors"
-                description="Scan to sponsor a table"
-                size={120}
-              />
-              <p className="text-xs text-gray-600 mt-1 print:text-[10px]">
-                Scan to sponsor a table online
-              </p>
-            </div>
           </div>
-        </div>
-
-        {/* Contact Information */}
-        <div className="mb-6 print:mb-4 text-center text-gray-700">
-          <p className="text-sm print:text-xs mb-2">
-            For more information, contact:
-          </p>
-          <p className="text-sm print:text-xs font-semibold">
-            Ukiah Senior Center
-          </p>
-          <p className="text-sm print:text-xs">
-            499 Leslie Street, Ukiah, CA 95482
-          </p>
-          <p className="text-sm print:text-xs">
-            Phone: (707) 462-4343
-          </p>
         </div>
 
         {/* Tax Information */}

@@ -9,10 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@types/puppeteer": "^7.0.4",
     "@types/qrcode": "^1.5.5",
     "google-auth-library": "^10.3.0",
     "googleapis": "^160.0.0",
     "next": "15.5.3",
+    "puppeteer": "^24.22.3",
     "qrcode": "^1.5.4",
     "react": "19.1.0",
     "react-dom": "19.1.0"
