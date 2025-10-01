@@ -59,358 +59,397 @@ export default function PaperTableSponsorshipsPage() {
   return (
     <div className="bg-white min-h-screen" style={{ fontFamily: 'Georgia, serif' }}>
       {/* Print-optimized letter layout */}
-      <div className="max-w-[8.5in] mx-auto px-8 py-6 print:px-6 print:py-4">
+      <div className="max-w-[8.5in] mx-auto px-6 py-4 print:px-4 print:py-3">
 
-        {/* Letter Content */}
-        <div className="mb-6 leading-relaxed" style={{ 
-          fontFamily: 'Georgia, serif',
-          color: colors.black,
-          fontSize: '14px',
-          lineHeight: '1.5',
-          marginTop: '16px'
-        }}>
-          <p className="mb-4">Dear Community Partner,</p>
-          
-          <p className="mb-4">
-            Ukiah Senior Center is celebrating more than 50 years of serving the greater Ukiah community. In an effort to remain a viable resource, we are gearing up for a Major Fundraising Gala. <strong style={{ color: colors.navy, fontWeight: '700' }}>Please consider adding this Gala to your philanthropic budget for 2026.</strong>
-          </p>
-          
-          <p className="mb-4">
-            The Gala will be held on Saturday evening, April 11, 2026 at Carl Purdy Hall, Redwood Empire Fairgrounds. Proceeds from this event will directly benefit the Ukiah Senior Center programs and activities for seniors and disabled adults.
-          </p>
-          
-          <p className="mb-4">
-            Ukiah Senior Center is dedicated to providing facility-based programs which enhance the quality of life for all Ukiah area seniors and disabled adults, their families and caregivers and to enable seniors to remain as independent as possible for as long as possible. USC depends on donations from our community, grants, and endowments to fund these programs.
-          </p>
-          
-          <p className="mb-4">
-            This Gala will be held at the Redwood Empire Fairgrounds in Carl Purdy Hall. The evening will begin with a no-host, full-service bar and appetizers, prepared by Ukiah Senior Center & Lisa Doster. All available as you explore the live and silent auction items.
-          </p>
-          
-          <p className="mb-4">
-            The dinner menu includes Shrimp Scampi and Tri Tip, Potatoes, Salad and Bread prepared in partnership with Redwood Empire Lions Club. Following dinner a dessert table will be available for your enjoyment. For your dancing pleasure, <strong><em>Decades</em></strong> will be returning this year.
-          </p>
-          
-          <p className="mb-5">
-            To become a sponsor for this important fundraising event, please complete the information below and return to Ukiah Senior Center, 499 Leslie St, Ukiah CA or use the QR code provided:
+        {/* Header */}
+        <div className="text-center mb-4">
+          <h1 style={{
+            color: colors.navy,
+            fontWeight: '700',
+            fontSize: '20px',
+            marginBottom: '8px',
+            fontFamily: 'Georgia, serif'
+          }}>
+            Support the Ukiah Senior Center
+          </h1>
+          <p style={{
+            color: colors.black,
+            fontSize: '14px',
+            marginBottom: '12px'
+          }}>
+            Purchase Tickets and/or Become a Sponsor for &apos;An Affair to Remember&apos; on Saturday, April 11, 2026
           </p>
         </div>
 
-        {/* Side-by-side layout: Table left, QR code right */}
-        <div className="mb-6 side-by-side-layout" style={{ display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+        {/* Side-by-side layout: Form left, QR code right */}
+        <div className="mb-4" style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
           
-          {/* Left side: Sponsorship Table */}
-          <div className="table-section" style={{ flex: '2', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <h2 style={{
-              color: colors.navy,
-              fontWeight: '700',
-              fontSize: '18px',
-              marginBottom: '12px',
-              fontFamily: 'Georgia, serif',
-              textAlign: 'center'
-            }}>
-              Table Sponsorship Opportunities
-            </h2>
+          {/* Left side: Form content */}
+          <div style={{ flex: '3' }}>
             
-            <table style={{
-              width: '90%',
-              borderCollapse: 'collapse',
-              border: `1px solid ${colors.neutralStroke}`,
-              fontFamily: 'Georgia, serif',
-              pageBreakInside: 'avoid',
-              margin: '0 auto'
+            {/* Sponsorship Levels Section */}
+            <div style={{ marginBottom: '16px' }}>
+              <h2 style={{
+                color: colors.navy,
+                fontWeight: '700',
+                fontSize: '16px',
+                marginBottom: '8px',
+                fontFamily: 'Georgia, serif'
+              }}>
+                ☐ Sponsorship Levels (Check One)
+              </h2>
+              
+              <table style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                border: `1px solid ${colors.neutralStroke}`,
+                fontFamily: 'Georgia, serif',
+                fontSize: '10px',
+                marginBottom: '12px'
+              }}>
+                <thead>
+                  <tr style={{ backgroundColor: colors.lightGray }}>
+                    <th style={{
+                      color: colors.navy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      textAlign: 'center',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      width: '8%'
+                    }}>Select</th>
+                    <th style={{
+                      color: colors.navy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      textAlign: 'center',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      width: '22%'
+                    }}>Tier</th>
+                    <th style={{
+                      color: colors.navy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      textAlign: 'center',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      width: '15%'
+                    }}>Price</th>
+                    <th style={{
+                      color: colors.navy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      textAlign: 'center',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      width: '55%'
+                    }}>Benefits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style={{
+                      textAlign: 'center',
+                      padding: '6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      fontSize: '16px'
+                    }}>☐</td>
+                    <td style={{
+                      color: colors.burgundy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      textAlign: 'center'
+                    }}>Diamond</td>
+                    <td style={{
+                      color: colors.burgundy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      textAlign: 'center'
+                    }}>$2,500</td>
+                    <td style={{
+                      fontSize: '9px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`
+                    }}>• 2 Reserved Tables for 8 • 4 bottles of wine • Recognition on advertising • Banner at event • Media acknowledgement</td>
+                  </tr>
+                  <tr>
+                    <td style={{
+                      textAlign: 'center',
+                      padding: '6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      fontSize: '16px'
+                    }}>☐</td>
+                    <td style={{
+                      color: colors.navy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      textAlign: 'center'
+                    }}>Platinum</td>
+                    <td style={{
+                      color: colors.navy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      textAlign: 'center'
+                    }}>$1,500</td>
+                    <td style={{
+                      fontSize: '9px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`
+                    }}>• 1 Reserved table for 8 • 2 bottles of wine • Recognition on advertising • Banner at event • Media acknowledgement</td>
+                  </tr>
+                  <tr>
+                    <td style={{
+                      textAlign: 'center',
+                      padding: '6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      fontSize: '16px'
+                    }}>☐</td>
+                    <td style={{
+                      color: colors.burgundy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      textAlign: 'center'
+                    }}>Gold</td>
+                    <td style={{
+                      color: colors.burgundy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      textAlign: 'center'
+                    }}>$750</td>
+                    <td style={{
+                      fontSize: '9px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`
+                    }}>• 4 Tickets • 1 bottle of wine • Reserved seating • Media acknowledgement</td>
+                  </tr>
+                  <tr>
+                    <td style={{
+                      textAlign: 'center',
+                      padding: '6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      fontSize: '16px'
+                    }}>☐</td>
+                    <td style={{
+                      color: colors.navy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      textAlign: 'center'
+                    }}>Ruby</td>
+                    <td style={{
+                      color: colors.navy,
+                      fontWeight: '600',
+                      fontSize: '10px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`,
+                      textAlign: 'center'
+                    }}>$400</td>
+                    <td style={{
+                      fontSize: '9px',
+                      padding: '4px 6px',
+                      border: `1px solid ${colors.neutralStroke}`
+                    }}>• 2 Tickets • 1 bottle of wine • Reserved seating • Media acknowledgement</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Individual Tickets and Donations */}
+            <div style={{ display: 'flex', gap: '16px', marginBottom: '16px' }}>
+              <div style={{ flex: 1 }}>
+                <h3 style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  marginBottom: '6px'
+                }}>Individual Tickets</h3>
+                <p style={{ fontSize: '10px', marginBottom: '4px' }}>
+                  # of Tickets: _____ @ $100 each (after 3/28/26: $110 each)
+                </p>
+                <p style={{ fontSize: '10px' }}>
+                  Subtotal: $ __________
+                </p>
+              </div>
+              
+              <div style={{ flex: 1 }}>
+                <h3 style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  marginBottom: '6px'
+                }}>Donations</h3>
+                <p style={{ fontSize: '10px', marginBottom: '4px' }}>
+                  Monetary donation: $ __________
+                </p>
+                <p style={{ fontSize: '10px' }}>
+                  Silent auction item: _______________
+                </p>
+              </div>
+            </div>
+
+            {/* Contact Information */}
+            <div style={{ marginBottom: '16px' }}>
+              <h3 style={{
+                color: colors.navy,
+                fontWeight: '600',
+                fontSize: '12px',
+                marginBottom: '8px'
+              }}>Contact Information</h3>
+              
+              <div style={{ display: 'flex', gap: '12px', marginBottom: '6px' }}>
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: '10px' }}>Name: </span>
+                  <div style={{ borderBottom: '1px solid #000', height: '16px' }}></div>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: '10px' }}>Email: </span>
+                  <div style={{ borderBottom: '1px solid #000', height: '16px' }}></div>
+                </div>
+              </div>
+              
+              <div style={{ display: 'flex', gap: '12px', marginBottom: '6px' }}>
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: '10px' }}>Phone: </span>
+                  <div style={{ borderBottom: '1px solid #000', height: '16px' }}></div>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <span style={{ fontSize: '10px' }}>Address: </span>
+                  <div style={{ borderBottom: '1px solid #000', height: '16px' }}></div>
+                </div>
+              </div>
+            </div>
+
+            {/* Payment and Delivery */}
+            <div style={{ display: 'flex', gap: '16px', marginBottom: '12px' }}>
+              <div style={{ flex: 1 }}>
+                <h3 style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  marginBottom: '6px'
+                }}>Payment Method</h3>
+                <p style={{ fontSize: '10px', marginBottom: '2px' }}>☐ Check (payable to Ukiah Senior Center)</p>
+                <p style={{ fontSize: '10px' }}>☐ Credit Card (complete online)</p>
+              </div>
+              
+              <div style={{ flex: 1 }}>
+                <h3 style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  marginBottom: '6px'
+                }}>Ticket Delivery</h3>
+                <p style={{ fontSize: '10px', marginBottom: '2px' }}>☐ Pick up at USC</p>
+                <p style={{ fontSize: '10px' }}>☐ Hold at Will Call</p>
+              </div>
+            </div>
+
+            {/* Total */}
+            <div style={{
+              borderTop: `2px solid ${colors.navy}`,
+              paddingTop: '8px',
+              marginBottom: '12px'
             }}>
-              <thead>
-                <tr style={{
-                  backgroundColor: colors.lightGray,
-                  pageBreakInside: 'avoid'
-                }}>
-                  <th style={{
-                    color: colors.navy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '8px 12px',
-                    textAlign: 'center',
-                    border: `1px solid ${colors.neutralStroke}`,
-                    width: '25%',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    Sponsorship Tier
-                  </th>
-                  <th style={{
-                    color: colors.navy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '8px 12px',
-                    textAlign: 'center',
-                    border: `1px solid ${colors.neutralStroke}`,
-                    width: '20%',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    Investment
-                  </th>
-                  <th style={{
-                    color: colors.navy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '8px 12px',
-                    textAlign: 'center',
-                    border: `1px solid ${colors.neutralStroke}`,
-                    width: '55%'
-                  }}>
-                    Benefits
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style={{ pageBreakInside: 'avoid', borderTop: `3px solid ${colors.neutralStroke}` }}>
-                  <td style={{
-                    color: colors.burgundy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '6px 12px',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    whiteSpace: 'nowrap',
-                    textAlign: 'center'
-                  }}>
-                    Diamond
-                  </td>
-                  <td style={{
-                    color: colors.burgundy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '6px 12px',
-                    textAlign: 'center',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    whiteSpace: 'nowrap'
-                  }}>
-                    $5,000
-                  </td>
-                  <td style={{
-                    color: colors.black,
-                    fontWeight: '400',
-                    fontSize: '11px',
-                    padding: '6px 12px 6px 35px',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    textAlign: 'left'
-                  }}>
-                    • Premium table placement<br/>
-                    • Logo on all materials<br/>
-                    • Special recognition<br/>
-                    • Complimentary wine service
-                  </td>
-                </tr>
-                <tr style={{ pageBreakInside: 'avoid', borderTop: `3px solid ${colors.neutralStroke}` }}>
-                  <td style={{
-                    color: colors.navy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '6px 12px',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    whiteSpace: 'nowrap',
-                    textAlign: 'center'
-                  }}>
-                    Platinum
-                  </td>
-                  <td style={{
-                    color: colors.navy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '6px 12px',
-                    textAlign: 'center',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    whiteSpace: 'nowrap'
-                  }}>
-                    $2,500
-                  </td>
-                  <td style={{
-                    color: colors.black,
-                    fontWeight: '400',
-                    fontSize: '11px',
-                    padding: '6px 12px 6px 35px',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    textAlign: 'left'
-                  }}>
-                    • Preferred table placement<br/>
-                    • Logo on select materials<br/>
-                    • Acknowledgment<br/>
-                    • Wine service
-                  </td>
-                </tr>
-                <tr style={{ pageBreakInside: 'avoid', borderTop: `3px solid ${colors.neutralStroke}` }}>
-                  <td style={{
-                    color: colors.burgundy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '6px 12px',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    whiteSpace: 'nowrap',
-                    textAlign: 'center'
-                  }}>
-                    Gold
-                  </td>
-                  <td style={{
-                    color: colors.burgundy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '6px 12px',
-                    textAlign: 'center',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    whiteSpace: 'nowrap'
-                  }}>
-                    $1,000
-                  </td>
-                  <td style={{
-                    color: colors.black,
-                    fontWeight: '400',
-                    fontSize: '11px',
-                    padding: '6px 12px 6px 35px',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    textAlign: 'left'
-                  }}>
-                    • Reserved table seating<br/>
-                    • Program acknowledgment<br/>
-                    • Wine service
-                  </td>
-                </tr>
-                <tr style={{ pageBreakInside: 'avoid', borderTop: `3px solid ${colors.neutralStroke}` }}>
-                  <td style={{
-                    color: colors.navy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '6px 12px',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    whiteSpace: 'nowrap',
-                    textAlign: 'center'
-                  }}>
-                    Ruby
-                  </td>
-                  <td style={{
-                    color: colors.navy,
-                    fontWeight: '600',
-                    fontSize: '12px',
-                    padding: '6px 12px',
-                    textAlign: 'center',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    whiteSpace: 'nowrap'
-                  }}>
-                    $1,500
-                  </td>
-                  <td style={{
-                    color: colors.black,
-                    fontWeight: '400',
-                    fontSize: '11px',
-                    padding: '6px 12px 6px 35px',
-                    borderTop: `1px solid ${colors.neutralStroke}`,
-                    textAlign: 'left'
-                  }}>
-                    • Table for 8 guests<br/>
-                    • Program listing<br/>
-                    • Complimentary appetizers
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}>
+                <span style={{
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  color: colors.navy
+                }}>TOTAL AMOUNT:</span>
+                <span style={{
+                  fontSize: '16px',
+                  fontWeight: '700',
+                  color: colors.navy
+                }}>$ ____________</span>
+              </div>
+            </div>
           </div>
 
           {/* Right side: QR Code */}
-          <div className="qr-section" style={{ flex: '1', minWidth: '200px', textAlign: 'center' }}>
+          <div style={{ flex: '1', textAlign: 'center', minWidth: '120px' }}>
             <h3 style={{
               color: colors.navy,
               fontWeight: '700',
-              fontSize: '16px',
-              marginBottom: '16px',
+              fontSize: '12px',
+              marginBottom: '8px',
               fontFamily: 'Georgia, serif'
             }}>
-              Quick Access
+              Complete Online
             </h3>
             
-            <div 
-              className="qr-card"
-              style={{
-                backgroundColor: colors.white,
-                padding: '16px',
-                textAlign: 'center',
-                pageBreakInside: 'avoid',
-                breakInside: 'avoid'
-              }}
-              aria-label="QR code for table sponsorship form"
-            >
+            <div style={{
+              backgroundColor: colors.white,
+              padding: '8px',
+              textAlign: 'center'
+            }}>
               <QRCodeDisplay 
                 url={sponsorshipUrl}
-                title="Table Sponsors"
-                description="Scan to sponsor a table"
-                size={100}
+                title=""
+                description=""
+                size={80}
               />
+              <p style={{
+                fontSize: '9px',
+                color: colors.black,
+                marginTop: '4px'
+              }}>
+                Scan to complete form online
+              </p>
             </div>
           </div>
         </div>
 
-        {/* Signature Section */}
-        <div className="mb-6" style={{ marginTop: '24px' }}>
-          <div style={{ marginBottom: '16px' }}>
-            <p style={{ color: colors.black, fontSize: '14px', marginBottom: '8px' }}>
-              Please complete the following information:
-            </p>
-          </div>
-          
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            <div style={{ display: 'flex', gap: '24px' }}>
-              <div style={{ flex: 1 }}>
-                <p style={{ fontSize: '12px', marginBottom: '4px' }}>Sponsor Name/Organization:</p>
-                <div style={{ borderBottom: '1px solid #000', height: '20px', width: '100%' }}></div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <p style={{ fontSize: '12px', marginBottom: '4px' }}>Contact Person:</p>
-                <div style={{ borderBottom: '1px solid #000', height: '20px', width: '100%' }}></div>
-              </div>
-            </div>
-            
-            <div style={{ display: 'flex', gap: '24px' }}>
-              <div style={{ flex: 1 }}>
-                <p style={{ fontSize: '12px', marginBottom: '4px' }}>Phone:</p>
-                <div style={{ borderBottom: '1px solid #000', height: '20px', width: '100%' }}></div>
-              </div>
-              <div style={{ flex: 1 }}>
-                <p style={{ fontSize: '12px', marginBottom: '4px' }}>Email:</p>
-                <div style={{ borderBottom: '1px solid #000', height: '20px', width: '100%' }}></div>
-              </div>
-            </div>
-            
-            <div>
-              <p style={{ fontSize: '12px', marginBottom: '4px' }}>Mailing Address:</p>
-              <div style={{ borderBottom: '1px solid #000', height: '20px', width: '100%', marginBottom: '8px' }}></div>
-              <div style={{ borderBottom: '1px solid #000', height: '20px', width: '100%' }}></div>
-            </div>
-            
-            <div>
-              <p style={{ fontSize: '12px', marginBottom: '4px' }}>Preferred Sponsorship Level:</p>
-              <div style={{ borderBottom: '1px solid #000', height: '20px', width: '100%' }}></div>
-            </div>
-          </div>
+        {/* Instructions */}
+        <div style={{
+          backgroundColor: colors.lightGray,
+          padding: '8px',
+          marginBottom: '12px',
+          fontSize: '10px',
+          borderRadius: '4px'
+        }}>
+          <p style={{ marginBottom: '4px', fontWeight: '600' }}>Check Payment Instructions:</p>
+          <p>Make checks payable to <strong>Ukiah Senior Center</strong> and write <strong>&quot;AATR&quot;</strong> in the memo. Mail to: Ukiah Senior Center, Attn: AATR, 499 Leslie St., Ukiah, CA 95482</p>
         </div>
 
         {/* Tax Information */}
         <div style={{
           textAlign: 'center',
           fontFamily: 'Georgia, serif',
-          marginTop: '24px'
+          marginBottom: '12px'
         }}>
-          <p style={{ color: colors.black, fontSize: '12px', marginBottom: '4px' }}>
+          <p style={{ color: colors.black, fontSize: '10px', marginBottom: '4px' }}>
             Your donation is tax deductible. Ukiah Senior Center is a 501(c)3 charitable organization.
           </p>
-          <p style={{ color: colors.navy, fontSize: '12px', fontWeight: '700', marginBottom: '12px' }}>
+          <p style={{ color: colors.navy, fontSize: '10px', fontWeight: '700', marginBottom: '8px' }}>
             Tax ID #: 23-7258082
           </p>
           
-          <div style={{ marginTop: '16px', textAlign: 'center' }}>
-            <p style={{ color: colors.black, fontSize: '12px', marginBottom: '2px' }}>
+          <div style={{ marginTop: '8px', textAlign: 'center' }}>
+            <p style={{ color: colors.black, fontSize: '10px', marginBottom: '2px' }}>
               Sincerely,
             </p>
-            <p style={{ color: colors.navy, fontSize: '12px', fontWeight: '600', marginBottom: '1px' }}>
+            <p style={{ color: colors.navy, fontSize: '10px', fontWeight: '600', marginBottom: '1px' }}>
               Clara Lehman
             </p>
-            <p style={{ color: colors.black, fontSize: '11px' }}>
+            <p style={{ color: colors.black, fontSize: '9px' }}>
               Vice President, USC BOARD OF DIRECTORS
             </p>
           </div>
@@ -420,17 +459,16 @@ export default function PaperTableSponsorshipsPage() {
         <div style={{
           textAlign: 'center',
           borderTop: `1px solid ${colors.neutralStroke}`,
-          paddingTop: '8px',
-          marginTop: '24px',
+          paddingTop: '6px',
           fontFamily: 'Georgia, serif'
         }}>
           <p style={{ 
             color: colors.navy, 
-            fontSize: '11px', 
+            fontSize: '9px', 
             fontWeight: '600',
             letterSpacing: '0.5px'
           }}>
-            UKIAH SENIOR CENTER - 499 LESLIE ST, UKIAH, CA 95482 - (707) 462-4343 - UKIAHSENIORCENTER.ORG
+            UKIAH SENIOR CENTER ⟡ 499 LESLIE ST, UKIAH, CA 95482 ⟡ (707) 462-4343 ⟡ UKIAHSENIORCENTER.ORG
           </p>
         </div>
 
@@ -450,7 +488,7 @@ export default function PaperTableSponsorshipsPage() {
       <style jsx global>{`
         @media print {
           @page {
-            margin: 0.5in;
+            margin: 0.4in;
             size: letter;
           }
           
@@ -463,47 +501,14 @@ export default function PaperTableSponsorshipsPage() {
             -webkit-print-color-adjust: exact;
             color-adjust: exact;
             font-family: Georgia, serif !important;
-            font-size: 11pt;
-            line-height: 1.3;
+            font-size: 9pt;
+            line-height: 1.2;
             margin: 0;
             padding: 0;
           }
           
           .fixed {
             display: none !important;
-          }
-          
-          .qr-card {
-            box-shadow: none !important;
-          }
-          
-          .mb-6 {
-            margin-bottom: 12px !important;
-          }
-          
-          .mb-4 {
-            margin-bottom: 8px !important;
-          }
-          
-          .mb-5 {
-            margin-bottom: 10px !important;
-          }
-        }
-        
-        /* Responsive layout for mobile */
-        @media screen and (max-width: 768px) {
-          .side-by-side-layout {
-            flex-direction: column !important;
-            gap: 16px !important;
-          }
-          
-          .table-section {
-            flex: none !important;
-          }
-          
-          .qr-section {
-            flex: none !important;
-            min-width: auto !important;
           }
         }
       `}</style>

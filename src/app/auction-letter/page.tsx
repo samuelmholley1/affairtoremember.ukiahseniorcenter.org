@@ -115,7 +115,7 @@ export default function AuctionLetterPage() {
             fontWeight: '600',
             letterSpacing: '0.5px'
           }}>
-            UKIAH SENIOR CENTER - 499 LESLIE ST, UKIAH, CA 95482 - (707) 462-4343 - UKIAHSENIORCENTER.ORG
+            UKIAH SENIOR CENTER ⟡ 499 LESLIE ST, UKIAH, CA 95482 ⟡ (707) 462-4343 ⟡ UKIAHSENIORCENTER.ORG
           </p>
         </div>
 
