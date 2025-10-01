@@ -185,7 +185,7 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     whiteSpace: 'nowrap'
                   }}>
-                    $5,000
+                    $2,500
                   </td>
                   <td style={{
                     color: colors.black,
@@ -222,7 +222,7 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     whiteSpace: 'nowrap'
                   }}>
-                    $2,500
+                    $1,500
                   </td>
                   <td style={{
                     color: colors.black,
@@ -259,7 +259,7 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     whiteSpace: 'nowrap'
                   }}>
-                    $1,000
+                    $750
                   </td>
                   <td style={{
                     color: colors.black,
@@ -295,7 +295,7 @@ export default function QRCodesPage() {
                     borderTop: `1px solid ${colors.neutralStroke}`,
                     whiteSpace: 'nowrap'
                   }}>
-                    $1,500
+                    $400
                   </td>
                   <td style={{
                     color: colors.black,
