@@ -118,6 +118,24 @@ export default function AuctionLetterPage() {
           </p>
         </div>
 
+        {/* Footer */}
+        <div style={{
+          textAlign: 'center',
+          borderTop: '1px solid #E5E7EB',
+          paddingTop: '8px',
+          marginTop: '16px',
+          fontFamily: 'Georgia, serif'
+        }}>
+          <p style={{ 
+            color: '#042148', 
+            fontSize: '11px', 
+            fontWeight: '600',
+            letterSpacing: '0.5px'
+          }}>
+            UKIAH SENIOR CENTER - 499 LESLIE ST, UKIAH, CA 95482 - (707) 462-4343 - UKIAHSENIORCENTER.ORG
+          </p>
+        </div>
+
         {/* Subtle Download PDF button - top right */}
         <div className="fixed top-4 right-4 print:hidden">
           <button 
@@ -137,17 +155,86 @@ export default function AuctionLetterPage() {
             margin: 0.5in;
             size: letter;
           }
+          
+          * {
+            -webkit-print-color-adjust: exact !important;
+            color-adjust: exact !important;
+          }
+          
           body {
             -webkit-print-color-adjust: exact;
             color-adjust: exact;
             font-family: Georgia, serif !important;
             font-size: 11pt;
             line-height: 1.3;
+            margin: 0;
+            padding: 0;
           }
-          * {
-            -webkit-print-color-adjust: exact;
-            color-adjust: exact;
-            font-family: Georgia, serif !important;
+          
+          header {
+            page-break-inside: avoid;
+            margin-bottom: 0;
+          }
+          
+          header img {
+            width: 100% !important;
+            height: auto !important;
+            display: block !important;
+            page-break-inside: avoid;
+          }
+          
+          .fixed {
+            display: none !important;
+          }
+          
+          .max-w-\\[8\\.5in\\] {
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0.5in !important;
+          }
+          
+          .bg-white {
+            background-color: white !important;
+          }
+          
+          .text-gray-800 {
+            color: #1f2937 !important;
+          }
+          
+          .text-gray-700 {
+            color: #374151 !important;
+          }
+          
+          .text-gray-600 {
+            color: #4b5563 !important;
+          }
+          
+          .text-gray-900 {
+            color: #111827 !important;
+          }
+          
+          .border {
+            border: 1px solid #d1d5db !important;
+          }
+          
+          .border-gray-300 {
+            border-color: #d1d5db !important;
+          }
+          
+          .border-gray-400 {
+            border-color: #9ca3af !important;
+          }
+          
+          .border-t {
+            border-top: 1px solid #9ca3af !important;
+          }
+          
+          strong {
+            font-weight: bold !important;
+          }
+          
+          em {
+            font-style: italic !important;
           }
         }
       `}</style>

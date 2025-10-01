@@ -9,6 +9,16 @@ export default function QRCodesPage() {
   const auctionUrl = `${baseUrl}/auction-donations`
   const sponsorshipUrl = `${baseUrl}/table-sponsors`
 
+  // Brand colors (HEX only) - Subtle palette
+  const colors = {
+    navy: '#042148',
+    burgundy: '#9F3833',
+    black: '#000000',
+    white: '#FFFFFF',
+    neutralStroke: '#E5E7EB',
+    lightGray: '#F9FAFB'
+  }
+
   const handleDownloadPDF = async () => {
     try {
       console.log('Starting server-side PDF generation...');
@@ -48,16 +58,21 @@ export default function QRCodesPage() {
   };
 
   return (
-    <div className="bg-white min-h-screen font-serif" style={{ fontFamily: 'Georgia, serif' }}>
+    <div className="bg-white min-h-screen" style={{ fontFamily: 'Georgia, serif' }}>
       {/* Print-optimized letter layout */}
       <div className="max-w-[8.5in] mx-auto px-8 py-6 print:px-6 print:py-4">
 
         {/* Letter Content */}
-        <div className="mb-6 print:mb-4 text-gray-800 leading-relaxed print:text-sm print:leading-normal">
+        <div className="mb-8 leading-relaxed" style={{ 
+          fontFamily: 'Georgia, serif',
+          color: colors.black,
+          fontSize: '14px',
+          lineHeight: '1.5'
+        }}>
           <p className="mb-4">Dear Community Partner,</p>
           
           <p className="mb-4">
-            Ukiah Senior Center is celebrating more than 50 years of serving the greater Ukiah community. In an effort to remain a viable resource, we are gearing up for a Major Fundraising Gala. <strong>Please consider adding this Gala to your philanthropic budget for 2026.</strong>
+            Ukiah Senior Center is celebrating more than 50 years of serving the greater Ukiah community. In an effort to remain a viable resource, we are gearing up for a Major Fundraising Gala. <strong style={{ color: colors.navy, fontWeight: '700' }}>Please consider adding this Gala to your philanthropic budget for 2026.</strong>
           </p>
           
           <p className="mb-4">
@@ -81,67 +96,318 @@ export default function QRCodesPage() {
           </p>
         </div>
 
-        {/* QR Codes Section - Compact for letter */}
-        <div className="mb-6 print:mb-4">
-          <div className="grid grid-cols-2 gap-6 print:gap-4">
+        {/* QR Codes Section - Brand consistent cards */}
+        <div className="mb-8">
+          <div className="grid grid-cols-2 gap-6" style={{ maxWidth: '600px', margin: '0 auto' }}>
             
-            {/* Auction Donations QR */}
-            <div className="text-center border border-gray-300 p-3 print:p-2">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 print:text-base print:mb-1">
+            {/* Auction Donations QR Card */}
+            <div 
+              className="qr-card"
+              style={{
+                backgroundColor: colors.white,
+                padding: '16px',
+                textAlign: 'center',
+                pageBreakInside: 'avoid',
+                breakInside: 'avoid'
+              }}
+              aria-label="QR code for auction donations form"
+            >
+              <h3 style={{
+                color: colors.navy,
+                fontWeight: '700',
+                fontSize: '16px',
+                marginBottom: '12px',
+                fontFamily: 'Georgia, serif'
+              }}>
                 Auction Donations
               </h3>
-              <QRCodeDisplay 
-                url={auctionUrl}
-                title="Auction Donations"
-                description="Scan to donate items"
-                size={120}
-              />
-              <p className="text-xs text-gray-600 mt-1 print:text-[10px]">
-                Scan to donate auction items online
-              </p>
+              <div>
+                <QRCodeDisplay 
+                  url={auctionUrl}
+                  title="Auction Donations"
+                  description="Scan to donate items"
+                  size={168}
+                />
+              </div>
             </div>
 
-            {/* Table Sponsors QR */}
-            <div className="text-center border border-gray-300 p-3 print:p-2">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2 print:text-base print:mb-1">
+            {/* Table Sponsors QR Card */}
+            <div 
+              className="qr-card"
+              style={{
+                backgroundColor: colors.white,
+                padding: '16px',
+                textAlign: 'center',
+                pageBreakInside: 'avoid',
+                breakInside: 'avoid'
+              }}
+              aria-label="QR code for table sponsorship form"
+            >
+              <h3 style={{
+                color: colors.navy,
+                fontWeight: '700',
+                fontSize: '16px',
+                marginBottom: '12px',
+                fontFamily: 'Georgia, serif'
+              }}>
                 Table Sponsors
               </h3>
-              <QRCodeDisplay 
-                url={sponsorshipUrl}
-                title="Table Sponsors"
-                description="Scan to sponsor a table"
-                size={120}
-              />
-              <p className="text-xs text-gray-600 mt-1 print:text-[10px]">
-                Scan to sponsor a table online
-              </p>
+              <div>
+                <QRCodeDisplay 
+                  url={sponsorshipUrl}
+                  title="Table Sponsors"
+                  description="Scan to sponsor a table"
+                  size={168}
+                />
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Sponsorship & Special Ticket Offers Section */}
+        <div className="mb-8">
+          <h2 style={{
+            color: colors.navy,
+            fontWeight: '700',
+            fontSize: '18px',
+            marginBottom: '12px',
+            fontFamily: 'Georgia, serif',
+            textAlign: 'center'
+          }}>
+            Sponsorship & Special Ticket Offers
+          </h2>
+          
+          <table style={{
+            width: '100%',
+            borderCollapse: 'collapse',
+            border: `1px solid ${colors.neutralStroke}`,
+            fontFamily: 'Georgia, serif',
+            pageBreakInside: 'avoid'
+          }}>
+            <thead>
+              <tr style={{
+                backgroundColor: colors.lightGray,
+                pageBreakInside: 'avoid'
+              }}>
+                <th style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '13px',
+                  padding: '8px 12px',
+                  textAlign: 'left',
+                  border: `1px solid ${colors.neutralStroke}`,
+                  width: '20%',
+                  whiteSpace: 'nowrap'
+                }}>
+                  Sponsorship Tier
+                </th>
+                <th style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '13px',
+                  padding: '8px 12px',
+                  textAlign: 'right',
+                  border: `1px solid ${colors.neutralStroke}`,
+                  width: '15%',
+                  whiteSpace: 'nowrap'
+                }}>
+                  Investment
+                </th>
+                <th style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '13px',
+                  padding: '8px 12px',
+                  textAlign: 'left',
+                  border: `1px solid ${colors.neutralStroke}`,
+                  width: '65%'
+                }}>
+                  Benefits
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style={{ pageBreakInside: 'avoid' }}>
+                <td style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  borderTop: `1px solid ${colors.neutralStroke}`,
+                  whiteSpace: 'nowrap'
+                }}>
+                  Diamond
+                </td>
+                <td style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  textAlign: 'right',
+                  borderTop: `1px solid ${colors.neutralStroke}`,
+                  whiteSpace: 'nowrap'
+                }}>
+                  $5,000
+                </td>
+                <td style={{
+                  color: colors.black,
+                  fontWeight: '400',
+                  fontSize: '11px',
+                  padding: '6px 12px',
+                  borderTop: `1px solid ${colors.neutralStroke}`
+                }}>
+                  • Premium table placement • Logo on all materials • Special recognition • Complimentary wine service
+                </td>
+              </tr>
+              <tr style={{ pageBreakInside: 'avoid' }}>
+                <td style={{
+                  color: colors.burgundy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  borderTop: `1px solid ${colors.neutralStroke}`,
+                  whiteSpace: 'nowrap'
+                }}>
+                  Platinum
+                </td>
+                <td style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  textAlign: 'right',
+                  borderTop: `1px solid ${colors.neutralStroke}`,
+                  whiteSpace: 'nowrap'
+                }}>
+                  $3,500
+                </td>
+                <td style={{
+                  color: colors.black,
+                  fontWeight: '400',
+                  fontSize: '11px',
+                  padding: '6px 12px',
+                  borderTop: `1px solid ${colors.neutralStroke}`
+                }}>
+                  • Preferred table placement • Logo on select materials • Acknowledgment • Wine service
+                </td>
+              </tr>
+              <tr style={{ pageBreakInside: 'avoid' }}>
+                <td style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  borderTop: `1px solid ${colors.neutralStroke}`,
+                  whiteSpace: 'nowrap'
+                }}>
+                  Gold
+                </td>
+                <td style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  textAlign: 'right',
+                  borderTop: `1px solid ${colors.neutralStroke}`,
+                  whiteSpace: 'nowrap'
+                }}>
+                  $2,500
+                </td>
+                <td style={{
+                  color: colors.black,
+                  fontWeight: '400',
+                  fontSize: '11px',
+                  padding: '6px 12px',
+                  borderTop: `1px solid ${colors.neutralStroke}`
+                }}>
+                  • Reserved table seating • Program acknowledgment • Wine service
+                </td>
+              </tr>
+              <tr style={{ pageBreakInside: 'avoid' }}>
+                <td style={{
+                  color: colors.burgundy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  borderTop: `1px solid ${colors.neutralStroke}`,
+                  whiteSpace: 'nowrap'
+                }}>
+                  Ruby
+                </td>
+                <td style={{
+                  color: colors.navy,
+                  fontWeight: '600',
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  textAlign: 'right',
+                  borderTop: `1px solid ${colors.neutralStroke}`,
+                  whiteSpace: 'nowrap'
+                }}>
+                  $1,500
+                </td>
+                <td style={{
+                  color: colors.black,
+                  fontWeight: '400',
+                  fontSize: '11px',
+                  padding: '6px 12px',
+                  borderTop: `1px solid ${colors.neutralStroke}`
+                }}>
+                  • Table for 8 guests • Program listing • Complimentary appetizers
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         {/* Contact Information */}
-        <div className="mb-6 print:mb-4 text-center text-gray-700">
-          <p className="text-sm print:text-xs mb-2">
+        <div className="mb-6" style={{
+          textAlign: 'center',
+          fontFamily: 'Georgia, serif'
+        }}>
+          <p style={{ color: colors.black, fontSize: '13px', marginBottom: '8px' }}>
             For more information, contact:
           </p>
-          <p className="text-sm print:text-xs font-semibold">
+          <p style={{ color: colors.navy, fontSize: '14px', fontWeight: '600', marginBottom: '4px' }}>
             Ukiah Senior Center
           </p>
-          <p className="text-sm print:text-xs">
+          <p style={{ color: colors.black, fontSize: '13px', marginBottom: '4px' }}>
             499 Leslie Street, Ukiah, CA 95482
           </p>
-          <p className="text-sm print:text-xs">
+          <p style={{ color: colors.black, fontSize: '13px' }}>
             Phone: (707) 462-4343
           </p>
         </div>
 
         {/* Tax Information */}
-        <div className="text-center text-sm print:text-xs text-gray-700 border-t border-gray-400 pt-3 print:pt-2">
-          <p className="mb-1">
+        <div style={{
+          textAlign: 'center',
+          borderTop: `1px solid ${colors.neutralStroke}`,
+          paddingTop: '12px',
+          fontFamily: 'Georgia, serif'
+        }}>
+          <p style={{ color: colors.black, fontSize: '12px', marginBottom: '4px' }}>
             Your donation is tax deductible. Ukiah Senior Center is a 501(c)3 charitable organization.
           </p>
-          <p>
-            <strong>Tax ID #: 23-7258082</strong>
+          <p style={{ color: colors.navy, fontSize: '12px', fontWeight: '700' }}>
+            Tax ID #: 23-7258082
+          </p>
+        </div>
+
+        {/* Footer */}
+        <div style={{
+          textAlign: 'center',
+          borderTop: `1px solid ${colors.neutralStroke}`,
+          paddingTop: '8px',
+          marginTop: '16px',
+          fontFamily: 'Georgia, serif'
+        }}>
+          <p style={{ 
+            color: colors.navy, 
+            fontSize: '11px', 
+            fontWeight: '600',
+            letterSpacing: '0.5px'
+          }}>
+            UKIAH SENIOR CENTER - 499 LESLIE ST, UKIAH, CA 95482 - (707) 462-4343 - UKIAHSENIORCENTER.ORG
           </p>
         </div>
 
@@ -157,24 +423,26 @@ export default function QRCodesPage() {
         </div>
       </div>
 
-      {/* Print-specific styles */}
+      {/* Simple Print CSS */}
       <style jsx global>{`
         @media print {
           @page {
             margin: 0.5in;
             size: letter;
           }
+          
           body {
-            -webkit-print-color-adjust: exact;
-            color-adjust: exact;
             font-family: Georgia, serif !important;
             font-size: 11pt;
             line-height: 1.3;
           }
-          * {
-            -webkit-print-color-adjust: exact;
-            color-adjust: exact;
-            font-family: Georgia, serif !important;
+          
+          .fixed {
+            display: none !important;
+          }
+          
+          .qr-card {
+            box-shadow: none !important;
           }
         }
       `}</style>
