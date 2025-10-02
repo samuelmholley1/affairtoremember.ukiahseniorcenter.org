@@ -21,12 +21,6 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: colors.navy }}>
             An Affair to Remember
           </h1>
-          <p className="text-xl md:text-2xl" style={{ color: colors.burgundy }}>
-            Ukiah Senior Center Annual Fundraiser
-          </p>
-          <p className="text-lg mt-4" style={{ color: '#6B7280' }}>
-            April 11, 2026 • Carl Purdy Hall, Redwood Empire Fairgrounds
-          </p>
         </div>
 
         {/* Two Big Buttons */}
@@ -43,9 +37,6 @@ export default function Home() {
               <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: colors.burgundy }}>
                 Auction Donations
               </h2>
-              <p className="text-lg mb-6" style={{ color: '#6B7280' }}>
-                Donate items, services, or experiences for our live and silent auctions
-              </p>
               <div className="inline-block px-8 py-4 rounded-xl text-white font-semibold text-lg transition-colors"
                    style={{ backgroundColor: colors.burgundy }}>
                 Donate Items →
@@ -64,9 +55,6 @@ export default function Home() {
               <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: colors.navy }}>
                 Tickets & Sponsorships
               </h2>
-              <p className="text-lg mb-6" style={{ color: '#6B7280' }}>
-                Purchase tickets or become a sponsor with multiple levels available
-              </p>
               <div className="inline-block px-8 py-4 rounded-xl text-white font-semibold text-lg transition-colors"
                    style={{ backgroundColor: colors.navy }}>
                 Get Tickets →
@@ -74,13 +62,6 @@ export default function Home() {
             </div>
           </Link>
 
-        </div>
-
-        {/* Footer */}
-        <div className="text-center mt-16">
-          <p className="text-sm" style={{ color: '#6B7280' }}>
-            Supporting seniors and disabled adults in the Ukiah community
-          </p>
         </div>
 
       </div>
