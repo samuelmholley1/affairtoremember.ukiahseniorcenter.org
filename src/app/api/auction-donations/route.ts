@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { addRowToSheet, generateSubmissionId, getClientIP, validateSheetStructure } from '@/lib/googleSheets'
+import { addRowToSheet, generateSubmissionId, getClientIP } from '@/lib/googleSheets'
 
 interface AuctionDonationData {
   name: string
@@ -15,23 +15,6 @@ interface AuctionDonationData {
   timestamp: string
   userAgent: string
 }
-
-const EXPECTED_HEADERS = [
-  'Timestamp',
-  'Name',
-  'Email', 
-  'Phone',
-  'Address',
-  'Item Description',
-  'Estimated Value',
-  'Pickup Required',
-  'Special Instructions',
-  'Contact Preference',
-  'Submission ID',
-  'IP Address',
-  'User Agent',
-  'Status'
-]
 
 export async function POST(request: NextRequest) {
   try {

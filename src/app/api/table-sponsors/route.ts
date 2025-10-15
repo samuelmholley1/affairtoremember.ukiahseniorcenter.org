@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { addRowToSheet, generateSubmissionId, getClientIP, validateSheetStructure } from '@/lib/googleSheets'
+import { addRowToSheet, generateSubmissionId, getClientIP } from '@/lib/googleSheets'
 
 interface SponsorshipData {
   sponsorshipLevel: string
@@ -26,34 +26,6 @@ const SPONSORSHIP_AMOUNTS = {
   'gold': 750,
   'ruby': 400
 } as const
-
-const EXPECTED_HEADERS = [
-  'Timestamp',
-  'Sponsorship Level',
-  'Sponsorship Amount',
-  'Ticket Quantity',
-  'Ticket Price',
-  'Ticket Total',
-  'Monetary Donation',
-  'Silent Auction Donation',
-  'Name',
-  'Email',
-  'Phone',
-  'Address',
-  'Payment Method',
-  'CC Last 4',
-  'CC Expiry',
-  'CC CVC',
-  'CC Name',
-  'CC Zip',
-  'Ticket Delivery',
-  'Total Amount',
-  'Submission ID',
-  'IP Address',
-  'User Agent',
-  'Referrer',
-  'Status'
-]
 
 export async function POST(request: NextRequest) {
   try {

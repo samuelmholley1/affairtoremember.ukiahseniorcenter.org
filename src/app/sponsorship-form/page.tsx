@@ -28,8 +28,6 @@ export default function SponsorshipFormPage() {
   }
   // Get the base URL for the QR codes (will be the production URL)
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://affairtoremember.ukiahseniorcenter.org'
-  
-  const sponsorshipUrl = `${baseUrl}/table-sponsors`
 
   // Brand colors (HEX only) - Subtle palette
   const colors = {

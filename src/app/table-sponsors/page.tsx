@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import type { Metadata } from 'next'
 import SponsorshipForm from '@/components/SponsorshipForm'
 
 export default function TableSponsorsPage() {

@@ -68,9 +68,9 @@ export const addRowToSheet = async (
     console.error('Error adding row to sheet:', error)
     console.error('Error details:', {
       message: error instanceof Error ? error.message : 'Unknown error',
-      code: (error as any)?.code,
-      status: (error as any)?.status,
-      statusText: (error as any)?.statusText,
+      code: (error as { code?: string })?.code,
+      status: (error as { status?: number })?.status,
+      statusText: (error as { statusText?: string })?.statusText,
     })
     throw error
   }

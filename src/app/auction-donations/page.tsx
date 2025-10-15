@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import type { Metadata } from 'next'
 import AuctionDonationForm from '@/components/AuctionDonationForm'
 
 export default function AuctionDonationsPage() {
