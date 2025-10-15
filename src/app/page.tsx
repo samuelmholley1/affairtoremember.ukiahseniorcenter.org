@@ -71,7 +71,7 @@ export default function Home() {
                     <span className="text-2xl mr-3">🎵</span>
                     <div>
                       <div className="font-bold text-xl" style={{ color: colors.navy }}>Live Music</div>
-                      <div className="text-gray-600">Dance to "Decades"</div>
+                      <div className="text-gray-600">Dance to &ldquo;Decades&rdquo;</div>
                     </div>
                   </div>
                 </div>
@@ -93,7 +93,7 @@ export default function Home() {
               <div className="text-center">
                 <div className="text-4xl mb-3">🎵</div>
                 <div className="font-semibold" style={{ color: colors.burgundy }}>Live Dance Music</div>
-                <div className="text-sm text-gray-600">Featuring "Decades" band</div>
+                <div className="text-sm text-gray-600">Featuring &ldquo;Decades&rdquo; band</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl mb-3">🍷</div>

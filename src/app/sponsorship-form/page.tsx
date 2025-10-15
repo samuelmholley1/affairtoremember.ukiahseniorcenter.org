@@ -26,9 +26,7 @@ export default function SponsorshipFormPage() {
       setError('Incorrect password')
     }
   }
-  // Get the base URL for the QR codes (will be the production URL)
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://affairtoremember.ukiahseniorcenter.org'
-
+  
   // Brand colors (HEX only) - Subtle palette
   const colors = {
     navy: '#042148',
