@@ -125,12 +125,12 @@ export default function AuctionLetterPage() {
       {/* Print-optimized letter layout */}
       <div className="max-w-[8.5in] mx-auto px-8 py-6 print:px-6 print:py-4">
 
-        {/* Letter Content */}
+        {/* Letter Content - Updated */}
         <div className="mb-6 print:mb-5 text-gray-800 leading-relaxed print:text-sm print:leading-normal">
           <p className="mb-5">Greetings!</p>
           
           <p className="mb-5">
-            &ldquo;An Affair to Remember&rdquo; - the annual Ukiah Senior Center fundraising dinner/dance will be held April 11, 2026, in Carl Purdy Hall at the Ukiah Fairgrounds. This event will feature dinner prepared by the Ukiah Lions Club, the dance music of <strong><em>&ldquo;Decades&rdquo;</em></strong>, a full-service no-host bar, appetizers, and live and silent auctions.
+            &ldquo;An Affair to Remember&rdquo; - the annual Ukiah Senior Center fundraising dinner/dance will be held April 11, 2026, in Carl Purdy Hall at the Redwood Empire Fairgrounds. This event will feature dinner prepared by the Redwood Empire Lions Club, the dance music of <strong><em>&ldquo;Decades&rdquo;</em></strong>, a full-service no-host bar, appetizers, and live and silent auctions.
           </p>
           
           <p className="mb-5">

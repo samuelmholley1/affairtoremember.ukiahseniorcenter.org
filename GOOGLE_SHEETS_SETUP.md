@@ -4,12 +4,20 @@
 
 1. Go to [Google Sheets](https://sheets.google.com)
 2. Create a new spreadsheet
-3. Name it "AATR Sponsorship Form Submissions"
-4. Set up the following column headers in row 1:
+3. Name it **"AATR Donation Data"**
+4. Create two tabs:
+   - **Tab 1: "Auction Donations"**
+   - **Tab 2: "Table Sponsorships"**
 
-| A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | X | Y |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| Timestamp | Sponsorship Level | Sponsorship Amount | Ticket Quantity | Ticket Price | Ticket Total | Monetary Donation | Silent Auction Donation | Name | Email | Phone | Address | Payment Method | CC Number | CC Expiry | CC CVC | CC Name | CC Zip | Ticket Delivery | Total Amount | Submission ID | IP Address | User Agent | Referrer | Status |
+### Tab 1: "Auction Donations" Headers (Row 1)
+```
+Timestamp	Name	Email	Phone	Address	Item Description	Estimated Value	Pickup Required	Special Instructions	Contact Preference	Submission ID	IP Address	User Agent	Status
+```
+
+### Tab 2: "Table Sponsorships" Headers (Row 1)
+```
+Timestamp	Sponsorship Level	Sponsorship Amount	Ticket Quantity	Ticket Price	Ticket Total	Monetary Donation	Silent Auction Donation	Name	Email	Phone	Address	Payment Method	CC Last 4	CC Expiry	CC CVC	CC Name	CC Zip	Ticket Delivery	Total Amount	Submission ID	IP Address	User Agent	Referrer	Status
+```
 
 ## Step 2: Create Google Apps Script
 
