@@ -4,6 +4,13 @@ import { GoogleAuth } from 'google-auth-library'
 // Initialize Google Sheets API
 const getGoogleSheetsInstance = async () => {
   try {
+    console.log('Initializing Google Sheets API...')
+    console.log('Environment check:')
+    console.log('- GOOGLE_SERVICE_ACCOUNT_EMAIL:', process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL ? 'Set' : 'Missing')
+    console.log('- GOOGLE_PRIVATE_KEY:', process.env.GOOGLE_PRIVATE_KEY ? 'Set (length: ' + process.env.GOOGLE_PRIVATE_KEY.length + ')' : 'Missing')
+    console.log('- GOOGLE_PROJECT_ID:', process.env.GOOGLE_PROJECT_ID ? 'Set' : 'Missing')
+    console.log('- GOOGLE_SHEETS_SPREADSHEET_ID:', process.env.GOOGLE_SHEETS_SPREADSHEET_ID ? 'Set' : 'Missing')
+
     const auth = new GoogleAuth({
       credentials: {
         client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
@@ -14,10 +21,11 @@ const getGoogleSheetsInstance = async () => {
     })
 
     const sheets = google.sheets({ version: 'v4', auth })
+    console.log('✓ Google Sheets API initialized successfully')
     return sheets
   } catch (error) {
     console.error('Error initializing Google Sheets:', error)
-    throw new Error('Failed to initialize Google Sheets API')
+    throw new Error(`Failed to initialize Google Sheets API: ${error instanceof Error ? error.message : 'Unknown error'}`)
   }
 }
 
@@ -27,12 +35,17 @@ export const addRowToSheet = async (
   values: (string | number)[]
 ) => {
   try {
+    console.log(`Adding row to sheet tab: "${tabName}"`)
+    console.log('Row data:', values)
+    
     const sheets = await getGoogleSheetsInstance()
     const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID
 
     if (!spreadsheetId) {
       throw new Error('GOOGLE_SHEETS_SPREADSHEET_ID environment variable is required')
     }
+
+    console.log('Attempting to add row to spreadsheet:', spreadsheetId)
 
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId,
@@ -43,6 +56,9 @@ export const addRowToSheet = async (
       },
     })
 
+    console.log('✓ Successfully added row to Google Sheets')
+    console.log('Response:', response.data)
+
     return {
       success: true,
       response: response.data,
@@ -50,6 +66,12 @@ export const addRowToSheet = async (
     }
   } catch (error) {
     console.error('Error adding row to sheet:', error)
+    console.error('Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      code: (error as any)?.code,
+      status: (error as any)?.status,
+      statusText: (error as any)?.statusText,
+    })
     throw error
   }
 }
