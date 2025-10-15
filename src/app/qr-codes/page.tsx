@@ -31,6 +31,7 @@ export default function QRCodesPage() {
   
   const auctionUrl = `${baseUrl}/auction-donations`
   const sponsorshipUrl = `${baseUrl}/table-sponsors`
+  const landingPageUrl = baseUrl // Main landing page URL
 
   // Brand colors (HEX only) - Subtle palette
   const colors = {
@@ -403,6 +404,28 @@ export default function QRCodesPage() {
             {/* Smaller QR Cards stacked vertically */}
             <div className="qr-grid" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               
+              {/* Landing Page QR Card */}
+              <div 
+                className="qr-card"
+                style={{
+                  backgroundColor: colors.white,
+                  padding: '12px',
+                  textAlign: 'center',
+                  pageBreakInside: 'avoid',
+                  breakInside: 'avoid'
+                }}
+                aria-label="QR code for event landing page"
+              >
+                <div>
+                  <QRCodeDisplay 
+                    url={landingPageUrl}
+                    title="Event Website"
+                    description="Scan to visit event site"
+                    size={70}
+                  />
+                </div>
+              </div>
+              
               {/* Auction Donations QR Card */}
               <div 
                 className="qr-card"
@@ -561,6 +584,7 @@ export default function QRCodesPage() {
             flex-direction: row !important;
             justify-content: center !important;
             gap: 12px !important;
+            flex-wrap: wrap !important;
           }
         }
       `}</style>

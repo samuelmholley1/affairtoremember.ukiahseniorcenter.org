@@ -87,7 +87,9 @@ export async function POST(request: NextRequest) {
     const timestamp = new Date()
     const clientIP = getClientIP(request)
 
-    // Validate sheet structure (optional - can be removed in production for performance)
+    // Temporarily disable validation to test basic functionality
+    // TODO: Re-enable after confirming sheet setup
+    /*
     const validation = await validateSheetStructure('Table Sponsorships', EXPECTED_HEADERS)
     if (!validation.exists) {
       console.error('Sheet validation failed:', validation.error)
@@ -96,6 +98,7 @@ export async function POST(request: NextRequest) {
         message: 'Google Sheets configuration error. Please contact support.',
       }, { status: 500 })
     }
+    */
 
     // Prepare data for Google Sheets (no credit card data stored)
     const rowData = [
@@ -126,8 +129,20 @@ export async function POST(request: NextRequest) {
       data.paymentStatus || 'Submitted'                                     // Y: Status
     ]
 
-    // Add row to Google Sheets
-    await addRowToSheet('Table Sponsorships', rowData)
+    // Add row to Google Sheets with better error handling
+    try {
+      const result = await addRowToSheet('Table Sponsorships', rowData)
+      console.log('Google Sheets result:', result)
+    } catch (sheetError) {
+      console.error('Google Sheets error details:', sheetError)
+      return NextResponse.json({
+        success: false,
+        message: 'Failed to save to Google Sheets. Please try again.',
+        error: process.env.NODE_ENV === 'development' ? 
+          (sheetError instanceof Error ? sheetError.message : 'Unknown Google Sheets error') : 
+          'Sheet integration error'
+      }, { status: 500 })
+    }
 
     // Log successful submission
     console.log('Table sponsorship submitted successfully:', {

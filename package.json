@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/puppeteer": "^7.0.4",
     "@types/qrcode": "^1.5.5",
+    "dotenv": "^17.2.3",
     "google-auth-library": "^10.3.0",
     "googleapis": "^160.0.0",
     "next": "15.5.3",

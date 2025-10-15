@@ -58,7 +58,9 @@ export async function POST(request: NextRequest) {
     const timestamp = new Date()
     const clientIP = getClientIP(request)
 
-    // Validate sheet structure (optional - can be removed in production for performance)
+    // Temporarily disable validation to test basic functionality
+    // TODO: Re-enable after confirming sheet setup
+    /*
     const validation = await validateSheetStructure('Auction Donations', EXPECTED_HEADERS)
     if (!validation.exists) {
       console.error('Sheet validation failed:', validation.error)
@@ -67,6 +69,7 @@ export async function POST(request: NextRequest) {
         message: 'Google Sheets configuration error. Please contact support.',
       }, { status: 500 })
     }
+    */
 
     // Prepare data for Google Sheets
     const rowData = [
@@ -86,8 +89,20 @@ export async function POST(request: NextRequest) {
       'Submitted'                                 // N: Status
     ]
 
-    // Add row to Google Sheets
-    await addRowToSheet('Auction Donations', rowData)
+    // Add row to Google Sheets with better error handling
+    try {
+      const result = await addRowToSheet('Auction Donations', rowData)
+      console.log('Google Sheets result:', result)
+    } catch (sheetError) {
+      console.error('Google Sheets error details:', sheetError)
+      return NextResponse.json({
+        success: false,
+        message: 'Failed to save to Google Sheets. Please try again.',
+        error: process.env.NODE_ENV === 'development' ? 
+          (sheetError instanceof Error ? sheetError.message : 'Unknown Google Sheets error') : 
+          'Sheet integration error'
+      }, { status: 500 })
+    }
 
     // Log successful submission
     console.log('Auction donation submitted successfully:', {
