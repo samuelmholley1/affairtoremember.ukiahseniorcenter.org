@@ -118,7 +118,7 @@ export default function Home() {
               <div className="text-center">
                 <div className="mb-8">
                   <div className="text-2xl font-bold mb-4" style={{ color: colors.burgundy }}>
-                    Individual Tickets: $75 each
+                    Individual Tickets: $100 each
                   </div>
                   <div className="text-lg text-gray-600 mb-6">
                     Includes dinner, dancing, and auction participation

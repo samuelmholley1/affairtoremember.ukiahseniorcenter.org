@@ -151,7 +151,7 @@ function PaymentForm({ ticketCount, totalAmount }: { ticketCount: number, totalA
 ## Recommended Ticket Options
 
 ### Individual Tickets
-- **Price**: $75 per ticket
+- **Price**: $100 per ticket
 - **Includes**: Dinner, dancing, auction participation
 
 ### Sponsor Tables
