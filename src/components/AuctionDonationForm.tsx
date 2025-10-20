@@ -93,6 +93,15 @@ export default function AuctionDonationForm() {
       }
     } catch (error) {
       console.error('Form submission error:', error)
+      
+      // Save form data to localStorage as backup
+      const backupData = {
+        ...formData,
+        timestamp: new Date().toISOString(),
+        formType: 'auction-donations'
+      }
+      localStorage.setItem('auction_donation_backup', JSON.stringify(backupData))
+      
       setSubmissionState({
         isSubmitting: false,
         isSubmitted: false,
@@ -100,6 +109,55 @@ export default function AuctionDonationForm() {
         submissionId: null
       })
     }
+  }
+
+  const downloadReadableBackup = () => {
+    const readableData = `
+AUCTION DONATION SUBMISSION BACKUP
+===================================
+Date: ${new Date().toISOString()}
+
+DONOR INFORMATION
+-----------------
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Address: ${formData.address}
+
+ITEM DETAILS
+------------
+Description: ${formData.itemDescription}
+Estimated Value: ${formData.estimatedValue}
+Pickup Required: ${formData.pickupRequired}
+Special Instructions: ${formData.specialInstructions}
+
+CONTACT PREFERENCE
+------------------
+Preferred Contact Method: ${formData.contactPreference}
+
+---
+Please email this information to: info@ukiahseniorcenter.org
+Subject: Auction Donation Submission (Failed Online Submission)
+`
+    
+    const dataBlob = new Blob([readableData], { type: 'text/plain' })
+    const url = URL.createObjectURL(dataBlob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `auction-donation-${Date.now()}.txt`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  }
+
+  const retrySubmission = () => {
+    setSubmissionState({
+      isSubmitting: false,
+      isSubmitted: false,
+      error: null,
+      submissionId: null
+    })
   }
 
   return (
@@ -137,23 +195,77 @@ export default function AuctionDonationForm() {
           </div>
         )}
 
-        {/* Error Message */}
+        {/* Error Message with Fallback Options */}
         {submissionState.error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <h3 className="text-sm font-medium text-red-800">
-                  Submission Error
-                </h3>
-                <div className="mt-2 text-sm text-red-700">
-                  <p>{submissionState.error}</p>
-                  <p className="mt-1">Please try again or contact us directly if the problem persists.</p>
+          <div className="bg-red-50 border-2 border-red-300 rounded-lg p-6 mb-8">
+            <div className="mb-4">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <svg className="h-6 w-6 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
                 </div>
+                <div className="ml-3 flex-1">
+                  <h3 className="text-lg font-bold text-red-900 mb-2">
+                    ⚠️ Submission Failed
+                  </h3>
+                  <p className="text-red-800 mb-3">
+                    {submissionState.error}
+                  </p>
+                  <p className="text-red-700 text-sm font-semibold mb-4">
+                    Don&apos;t worry! Your information has been saved locally. You have several options:
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="space-y-3">
+              {/* Retry Button */}
+              <button
+                type="button"
+                onClick={retrySubmission}
+                className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                Try Submitting Again
+              </button>
+
+              {/* Download Readable Backup */}
+              <button
+                type="button"
+                onClick={downloadReadableBackup}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Download Your Information (Text File)
+              </button>
+
+              {/* Email Contact Info */}
+              <div className="bg-white border-2 border-red-200 rounded-lg p-4">
+                <p className="text-sm text-gray-700 mb-2">
+                  <strong>Alternative:</strong> Email your information directly to:
+                </p>
+                <a 
+                  href="mailto:info@ukiahseniorcenter.org?subject=Auction%20Donation%20Submission" 
+                  className="text-blue-600 hover:text-blue-800 font-semibold underline"
+                >
+                  info@ukiahseniorcenter.org
+                </a>
+                <p className="text-xs text-gray-600 mt-2">
+                  Click &quot;Download Your Information&quot; above, then attach the file to your email
+                </p>
+              </div>
+
+              {/* Phone Contact */}
+              <div className="bg-yellow-50 border border-yellow-200 rounded p-3 text-sm">
+                <p className="text-gray-700">
+                  <strong>Or call us:</strong> <a href="tel:7074624343" className="text-blue-600 hover:text-blue-800 font-semibold">(707) 462-4343</a>
+                </p>
               </div>
             </div>
           </div>
