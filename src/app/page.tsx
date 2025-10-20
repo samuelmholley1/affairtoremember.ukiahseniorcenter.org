@@ -1,11 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import Link from "next/link"
 
 export default function Home() {
-  const [showTicketForm, setShowTicketForm] = useState(false)
-
   // Brand colors
   const colors = {
     navy: '#042148',
@@ -114,56 +111,57 @@ export default function Home() {
               Get Your Tickets
             </h2>
             
-            {!showTicketForm ? (
-              <div className="text-center">
-                <div className="mb-8">
-                  <div className="text-2xl font-bold mb-4" style={{ color: colors.burgundy }}>
-                    Individual Tickets: $100 each
-                  </div>
-                  <div className="text-lg text-gray-600 mb-6">
-                    Includes dinner, dancing, and auction participation
-                  </div>
-                </div>
-                
-                <button 
-                  onClick={() => setShowTicketForm(true)}
-                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white text-xl font-bold py-4 px-12 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg"
-                >
-                  🎟️ Purchase Tickets Now
-                </button>
-                
-                <div className="mt-8 p-6 bg-gray-50 rounded-xl">
-                  <h3 className="text-xl font-bold mb-4" style={{ color: colors.navy }}>
-                    Sponsor Table Options Available
+            {/* Online Ticket Purchase Coming Soon */}
+            <div className="bg-blue-50 border-2 border-blue-300 rounded-xl p-6 mb-8">
+              <div className="flex items-start gap-3">
+                <span className="text-3xl">🎟️</span>
+                <div>
+                  <h3 className="text-xl font-bold mb-2" style={{ color: colors.navy }}>
+                    Online Ticket Purchase Coming Soon!
                   </h3>
-                  <div className="text-gray-700 mb-4">
-                    Reserved seating, complimentary wine, and recognition at the event
-                  </div>
-                  <div className="text-lg font-semibold" style={{ color: colors.burgundy }}>
-                    Contact John McCowen: (707) 391-1788
+                  <p className="text-gray-700 mb-3">
+                    We&apos;re setting up secure online ticket purchasing. In the meantime, you can purchase tickets by:
+                  </p>
+                  <div className="space-y-2 text-gray-700">
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span><strong>Calling:</strong> (707) 462-4343</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span><strong>Visiting:</strong> Ukiah Senior Center, 499 Leslie St, Ukiah, CA</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-blue-600 font-bold">•</span>
+                      <span><strong>Sponsorship Tables:</strong> Contact John McCowen at (707) 391-1788</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="max-w-2xl mx-auto">
-                {/* Stripe Embed Will Go Here */}
-                <div className="border-2 border-dashed border-gray-300 rounded-xl p-12 text-center bg-gray-50">
-                  <div className="text-4xl mb-4">🔧</div>
-                  <div className="text-xl font-bold mb-4" style={{ color: colors.navy }}>
-                    Stripe Payment Integration
-                  </div>
-                  <div className="text-gray-600 mb-6">
-                    Secure payment processing will be embedded here
-                  </div>
-                  <button 
-                    onClick={() => setShowTicketForm(false)}
-                    className="text-blue-600 hover:text-blue-800 underline"
-                  >
-                    ← Back to ticket information
-                  </button>
+            </div>
+            
+            <div className="text-center">
+              <div className="mb-8">
+                <div className="text-2xl font-bold mb-4" style={{ color: colors.burgundy }}>
+                  Individual Tickets: $100 each
+                </div>
+                <div className="text-lg text-gray-600 mb-6">
+                  Includes dinner, dancing, and auction participation
                 </div>
               </div>
-            )}
+              
+              <div className="p-6 bg-gray-50 rounded-xl">
+                <h3 className="text-xl font-bold mb-4" style={{ color: colors.navy }}>
+                  Sponsor Table Options Available
+                </h3>
+                <div className="text-gray-700 mb-4">
+                  Reserved seating, complimentary wine, and recognition at the event
+                </div>
+                <div className="text-lg font-semibold" style={{ color: colors.burgundy }}>
+                  Contact John McCowen: (707) 391-1788
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* About the Cause */}
