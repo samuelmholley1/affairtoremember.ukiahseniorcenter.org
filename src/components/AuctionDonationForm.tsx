@@ -136,7 +136,9 @@ CONTACT PREFERENCE
 Preferred Contact Method: ${formData.contactPreference}
 
 ---
-Please email this information to: info@ukiahseniorcenter.org
+Please email this information to: 
+Samuel Holley, Donation Data Clerk
+sam@samuelholley.com
 Subject: Auction Donation Submission (Failed Online Submission)
 `
     
@@ -250,12 +252,16 @@ Subject: Auction Donation Submission (Failed Online Submission)
                 <p className="text-sm text-gray-700 mb-2">
                   <strong>Alternative:</strong> Email your information directly to:
                 </p>
-                <a 
-                  href="mailto:info@ukiahseniorcenter.org?subject=Auction%20Donation%20Submission" 
-                  className="text-blue-600 hover:text-blue-800 font-semibold underline"
-                >
-                  info@ukiahseniorcenter.org
-                </a>
+                <div className="mb-2">
+                  <div className="font-semibold text-gray-900">Samuel Holley</div>
+                  <div className="text-xs text-gray-600">Donation Data Clerk</div>
+                  <a 
+                    href="mailto:sam@samuelholley.com?subject=Auction%20Donation%20Submission" 
+                    className="text-blue-600 hover:text-blue-800 font-semibold underline"
+                  >
+                    sam@samuelholley.com
+                  </a>
+                </div>
                 <p className="text-xs text-gray-600 mt-2">
                   Click &quot;Download Your Information&quot; above, then attach the file to your email
                 </p>
