@@ -518,48 +518,50 @@ export default function SponsorshipForm() {
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Payment Information</h2>
             
-            <div className="space-y-6">
-              {/* Payment Method Selection */}
-              <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Choose Your Payment Method</h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-white p-4 rounded-lg border-2 border-gray-200">
-                    <h4 className="font-semibold text-gray-900 mb-2">💳 Credit Card</h4>
-                    <p className="text-sm text-gray-600 mb-3">
-                      Pay securely online with Stripe. You&apos;ll be redirected to complete your payment.
-                    </p>
-                    <ul className="text-xs text-gray-500 space-y-1">
-                      <li>• Instant processing</li>
-                      <li>• Secure encryption</li>
-                      <li>• Immediate confirmation</li>
-                    </ul>
-                  </div>
-                  
-                  <div className="bg-white p-4 rounded-lg border-2 border-gray-200">
-                    <h4 className="font-semibold text-gray-900 mb-2">📄 Check Payment</h4>
-                    <p className="text-sm text-gray-600 mb-3">
-                      Submit your order now and mail your check to complete the transaction.
-                    </p>
-                    <ul className="text-xs text-gray-500 space-y-1">
-                      <li>• No processing fees</li>
-                      <li>• Mail payment to USC</li>
-                      <li>• Include submission ID</li>
-                    </ul>
-                  </div>
+            {/* Online Payment Coming Soon Notice */}
+            <div className="bg-blue-50 border-2 border-blue-300 p-6 rounded-lg mb-6">
+              <div className="flex items-start gap-3">
+                <span className="text-3xl">💳</span>
+                <div>
+                  <h3 className="text-lg font-bold text-blue-900 mb-2">
+                    Online Payment Processing Coming Soon!
+                  </h3>
+                  <p className="text-blue-800 mb-3">
+                    We&apos;re currently setting up secure online payment processing. In the meantime, you can still reserve your sponsorship or tickets by submitting this form.
+                  </p>
+                  <p className="text-blue-700 text-sm font-semibold">
+                    ✓ Submit your order now to secure your reservation<br/>
+                    ✓ Pay by check using the instructions below<br/>
+                    ✓ Online payment option will be available soon
+                  </p>
                 </div>
               </div>
+            </div>
 
+            <div className="space-y-6">
               {/* Check Payment Instructions */}
               <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">📝 Check Payment Instructions</h3>
-                <p className="text-sm text-gray-700">
-                  If paying by check, make checks payable to <strong>Ukiah Senior Center</strong> and write <strong>&quot;AATR&quot;</strong> in the memo. 
-                  Include your submission ID with your payment and mail to:<br/><br/>
-                  <strong>Ukiah Senior Center</strong><br/>
-                  Attn: AATR<br/>
-                  499 Leslie St.<br/>
-                  Ukiah, CA 95482
-                </p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">📝 How to Complete Your Payment</h3>
+                <div className="space-y-3 text-sm text-gray-700">
+                  <p>
+                    <strong>Step 1:</strong> Submit this form to reserve your sponsorship/tickets
+                  </p>
+                  <p>
+                    <strong>Step 2:</strong> Make check payable to <strong>Ukiah Senior Center</strong>
+                  </p>
+                  <p>
+                    <strong>Step 3:</strong> Write <strong>&quot;AATR&quot;</strong> and your submission ID in the memo line
+                  </p>
+                  <p>
+                    <strong>Step 4:</strong> Mail to:
+                  </p>
+                  <div className="ml-4 bg-white p-3 rounded border border-yellow-300 mt-2">
+                    <strong>Ukiah Senior Center</strong><br/>
+                    Attn: AATR<br/>
+                    499 Leslie St.<br/>
+                    Ukiah, CA 95482
+                  </div>
+                </div>
               </div>
             </div>
           </div>
