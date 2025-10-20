@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <header className="w-full">
           <Image
-            src="/aatr_banner.png"
+            src="/aatr_banner_2026.png"
             alt="An Affair to Remember - Ukiah Senior Center"
             width={1200}
             height={300}
