@@ -30,6 +30,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <header className="w-full">
+          {/* Banner updated for 2026 event - force redeploy */}
           <Image
             src="/aatr_banner_2026.png"
             alt="An Affair to Remember - Ukiah Senior Center"
