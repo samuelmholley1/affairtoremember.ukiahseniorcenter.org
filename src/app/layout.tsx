@@ -38,6 +38,7 @@ export default function RootLayout({
             height={300}
             className="w-full h-auto object-cover"
             priority
+            unoptimized
           />
         </header>
         
