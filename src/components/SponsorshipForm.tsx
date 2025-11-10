@@ -735,6 +735,21 @@ Subject: Table Sponsorship Submission (Failed Online Submission)
               <span className="text-2xl font-bold text-blue-600">${calculateTotal().toLocaleString()}</span>
             </div>
             
+            {/* Zeffy Payment Button */}
+            <div className="mb-6">
+              <button
+                zeffy-form-link="https://www.zeffy.com/embed/ticketing/an-affair-to-remember-2026-a-night-at-the-speakeasy?modal=true"
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 px-6 rounded-md font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-colors"
+              >
+                🎟️ Purchase Tickets with Zeffy (No Processing Fees!)
+              </button>
+            </div>
+
+            {/* Alternative Payment Methods */}
+            <div className="bg-gray-50 p-4 rounded-lg mb-6">
+              <p className="text-sm font-semibold text-gray-700 mb-2">Alternative Payment Methods:</p>
+            </div>
+            
             {/* Two Submit Buttons */}
             <div className="grid md:grid-cols-2 gap-4">
               {/* Check Payment Button */}

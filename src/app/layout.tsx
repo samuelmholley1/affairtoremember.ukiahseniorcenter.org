@@ -26,6 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script src="https://zeffy-scripts.s3.ca-central-1.amazonaws.com/embed-form-script.min.js" async></script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
