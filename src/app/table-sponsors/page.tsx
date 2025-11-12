@@ -11,7 +11,12 @@ export default function TableSponsorsPage() {
     const url = 'https://www.zeffy.com/embed/ticketing/an-affair-to-remember-2026-a-night-at-the-speakeasy?modal=true'
 
     // Try to use Zeffy's potential global API if available
-    const anyWin = window as any
+    interface WindowWithZeffy extends Window {
+      Zeffy?: {
+        open?: (url: string) => void
+      }
+    }
+    const anyWin = window as WindowWithZeffy
     try {
       if (anyWin.Zeffy && typeof anyWin.Zeffy.open === 'function') {
         anyWin.Zeffy.open(url)
@@ -26,7 +31,7 @@ export default function TableSponsorsPage() {
       a.click()
       document.body.removeChild(a)
       return
-    } catch (err) {
+    } catch {
       // Fallback: open in a new window/tab
       window.open(url, '_blank', 'noopener,noreferrer,width=900,height=700')
     }
