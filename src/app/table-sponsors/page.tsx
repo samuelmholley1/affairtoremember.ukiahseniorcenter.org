@@ -7,6 +7,31 @@ import SponsorshipForm from '@/components/SponsorshipForm'
 export default function TableSponsorsPage() {
   const [showFormModal, setShowFormModal] = useState(false)
 
+  const handleCreditClick = () => {
+    const url = 'https://www.zeffy.com/embed/ticketing/an-affair-to-remember-2026-a-night-at-the-speakeasy?modal=true'
+
+    // Try to use Zeffy's potential global API if available
+    const anyWin = window as any
+    try {
+      if (anyWin.Zeffy && typeof anyWin.Zeffy.open === 'function') {
+        anyWin.Zeffy.open(url)
+        return
+      }
+      // Some embed scripts attach to attributes; try to dispatch a click on a temporary anchor
+      const a = document.createElement('a')
+      a.href = url
+      a.setAttribute('data-zeffy-form-link', url)
+      a.style.display = 'none'
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      return
+    } catch (err) {
+      // Fallback: open in a new window/tab
+      window.open(url, '_blank', 'noopener,noreferrer,width=900,height=700')
+    }
+  }
+
   return (
     <>
       {/* Zeffy embed script (loads the modal behavior) */}
@@ -43,6 +68,8 @@ export default function TableSponsorsPage() {
               {/* Credit Card Option (Zeffy) */}
               <button
                 data-zeffy-form-link="https://www.zeffy.com/embed/ticketing/an-affair-to-remember-2026-a-night-at-the-speakeasy?modal=true"
+                zeffy-form-link="https://www.zeffy.com/embed/ticketing/an-affair-to-remember-2026-a-night-at-the-speakeasy?modal=true"
+                onClick={handleCreditClick}
                 className="group relative bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl p-8 transition-all transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300"
                 type="button"
               >
