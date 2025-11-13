@@ -188,15 +188,13 @@ export default function TableSponsorsPage() {
                 </p>
                 <div className="bg-white rounded border border-red-300 flex justify-center items-center" style={{ padding: '6px', overflow: 'hidden' }}>
                   <img
-                    src="/zero_tip.png"
+                    src="/zero_tip_small.png"
                     alt="Set Zeffy tip to zero"
                     className="rounded"
                     style={{ 
-                      width: '200px',
                       maxWidth: '100%', 
                       height: 'auto', 
-                      display: 'block',
-                      imageRendering: 'crisp-edges'
+                      display: 'block'
                     }}
                   />
                 </div>
