@@ -9,7 +9,7 @@ export default function TableSponsorsPage() {
   const [isZeffyLoading, setIsZeffyLoading] = useState(true)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
 
-  const zeffyUrl = "https://www.zeffy.com/embed/ticketing/an-affair-to-remember-2026-a-night-at-the-speakeasy?modal=true"
+  const zeffyUrl = "https://www.zeffy.com/embed/ticketing/table-sponsors-an-affair-to-remember-2026-a-night-at-the-speakeasy?modal=true"
 
   // Handle Zeffy modal open
   const handleCreditCardClick = () => {
