@@ -30,40 +30,6 @@ export default function TableSponsorsPage() {
             </p>
           </div>
 
-          {/* Zeffy Zero Fee Notice */}
-          <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 mb-6">
-            <div className="flex flex-col md:flex-row items-center gap-6">
-              {/* Zeffy Logo/Image */}
-              <div className="flex-shrink-0">
-                <img 
-                  src="https://zeffy.com/wp-content/themes/zeffy/assets/images/logos/logo-zeffy-primary.svg" 
-                  alt="Zeffy - Zero fees for nonprofits"
-                  className="h-16 w-auto"
-                />
-              </div>
-              
-              {/* Warning Text */}
-              <div className="flex-1">
-                <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 text-2xl">⚠️</div>
-                    <div>
-                      <h3 className="text-lg font-bold text-red-900 mb-2">
-                        Important: 100% of Your Payment Goes to Ukiah Senior Center
-                      </h3>
-                      <p className="text-red-800 text-sm mb-2">
-                        Zeffy charges <strong>ZERO fees</strong> to nonprofits. During checkout, you may see an optional tip to support Zeffy&apos;s platform.
-                      </p>
-                      <p className="text-red-900 font-bold text-sm">
-                        This tip is completely OPTIONAL and goes to Zeffy, not to the Ukiah Senior Center. You can change it to $0.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Payment Method Choice */}
           <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12">
             <h2 className="text-3xl font-bold text-center text-gray-900 mb-3">
@@ -153,48 +119,30 @@ export default function TableSponsorsPage() {
                 </svg>
               </button>
 
-              {/* USC Logo and Zeffy Zero Warning in Modal */}
-              <div className="px-6 pt-4 pb-2">
-                {/* USC Logo */}
-                <div className="flex justify-center mb-4">
-                  <img 
-                    src="/logo.png" 
-                    alt="Ukiah Senior Center"
-                    className="h-20 w-auto"
-                  />
-                </div>
+              {/* USC Logo */}
+              <div className="flex justify-center px-6 pt-4 pb-2">
+                <img 
+                  src="/logo.png" 
+                  alt="Ukiah Senior Center"
+                  className="h-20 w-auto"
+                />
+              </div>
 
-                {/* Zeffy Zero Notice */}
-                <div className="bg-white rounded-xl shadow-lg p-4 mb-4">
-                  <div className="flex flex-col md:flex-row items-center gap-4">
-                    {/* Zeffy Logo */}
-                    <div className="flex-shrink-0">
-                      <img 
-                        src="https://zeffy.com/wp-content/themes/zeffy/assets/images/logos/logo-zeffy-primary.svg" 
-                        alt="Zeffy - Zero fees for nonprofits"
-                        className="h-12 w-auto"
-                      />
-                    </div>
-                    
-                    {/* Warning Text */}
-                    <div className="flex-1">
-                      <div className="bg-red-50 border-2 border-red-500 rounded-lg p-3">
-                        <div className="flex items-start gap-2">
-                          <div className="flex-shrink-0 text-xl">⚠️</div>
-                          <div>
-                            <h3 className="text-base font-bold text-red-900 mb-1">
-                              100% Goes to Ukiah Senior Center
-                            </h3>
-                            <p className="text-red-800 text-xs mb-1">
-                              Zeffy charges <strong>ZERO fees</strong>. Any optional tip during checkout goes to Zeffy, not USC.
-                            </p>
-                            <p className="text-red-900 font-bold text-xs">
-                              You can change the tip to $0.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+              {/* Zeffy Zero Tip Notice - Exact from memberships repo */}
+              <div className="px-6 pb-4">
+                <div className="bg-red-50 border-2 border-red-400 rounded-lg p-4">
+                  <h3 className="text-base md:text-lg font-bold text-red-900 text-center mb-2">
+                    ⚠️ Set Zeffy Tip to $0
+                  </h3>
+                  <p className="text-xs md:text-sm text-red-900 text-center mb-2 max-w-[700px] mx-auto">
+                    When filling out the form below, <strong>set the tip to $0</strong> so you don&apos;t pay any fees.
+                  </p>
+                  <div className="bg-white rounded border border-red-300 p-2 max-w-[600px] mx-auto overflow-hidden">
+                    <img
+                      src="/zero_tip.png"
+                      alt="Set Zeffy tip to zero"
+                      className="rounded max-w-full h-auto block"
+                    />
                   </div>
                 </div>
               </div>
