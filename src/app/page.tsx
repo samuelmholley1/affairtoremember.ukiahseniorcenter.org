@@ -1,256 +1,234 @@
 'use client'
 
-import Link from "next/link"
+import { useState, useRef, useEffect } from 'react'
 
 export default function Home() {
-  // Brand colors
-  const colors = {
-    navy: '#042148',
-    burgundy: '#9F3833',
-    white: '#FFFFFF',
-    lightGray: '#F9FAFB',
-    gray: '#6B7280'
+  const [showZeffyModal, setShowZeffyModal] = useState(false)
+  const [isZeffyLoading, setIsZeffyLoading] = useState(true)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+
+  const zeffyUrl = "https://www.zeffy.com/embed/ticketing/an-affair-to-remember-2026-a-night-at-the-speakeasy?modal=true"
+
+  const handleBuyTicketsClick = () => {
+    setShowZeffyModal(true)
+    setIsZeffyLoading(true)
   }
 
+  const handleCloseZeffy = () => {
+    setShowZeffyModal(false)
+  }
+
+  useEffect(() => {
+    if (!showZeffyModal) return
+
+    document.body.style.overflow = 'hidden'
+
+    setTimeout(() => {
+      closeButtonRef.current?.focus()
+    }, 100)
+
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        handleCloseZeffy()
+      }
+    }
+    document.addEventListener('keydown', handleEsc)
+
+    return () => {
+      document.body.style.overflow = 'unset'
+      document.removeEventListener('keydown', handleEsc)
+    }
+  }, [showZeffyModal])
+
   return (
-    <div className="min-h-screen" style={{ 
-      background: `linear-gradient(135deg, ${colors.lightGray} 0%, ${colors.white} 100%)`,
-      fontFamily: 'Georgia, serif'
-    }}>
-      
-      {/* Hero Section */}
-      <div className="relative">
-        <div className="max-w-6xl mx-auto px-6 py-16">
+    <>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
           
-          {/* Event Title */}
           <div className="text-center mb-12">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ color: colors.navy }}>
-              An Affair to Remember
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
+              An Affair to Remember 2026
             </h1>
-            <div className="text-2xl md:text-3xl mb-8" style={{ color: colors.burgundy }}>
-              Annual Ukiah Senior Center Fundraising Dinner & Dance
-            </div>
-            
-            {/* Event Details */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 max-w-4xl mx-auto mb-12">
-              <div className="grid md:grid-cols-2 gap-8 text-left">
-                
-                {/* Left Column */}
-                <div>
-                  <div className="flex items-center mb-4">
-                    <span className="text-2xl mr-3">📅</span>
-                    <div>
-                      <div className="font-bold text-xl" style={{ color: colors.navy }}>April 11, 2026</div>
-                      <div className="text-gray-600">Saturday Evening</div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center mb-4">
-                    <span className="text-2xl mr-3">📍</span>
-                    <div>
-                      <div className="font-bold text-xl" style={{ color: colors.navy }}>Carl Purdy Hall</div>
-                      <div className="text-gray-600">Redwood Empire Fairgrounds</div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Column */}
-                <div>
-                  <div className="flex items-center mb-4">
-                    <span className="text-2xl mr-3">🍽️</span>
-                    <div>
-                      <div className="font-bold text-xl" style={{ color: colors.navy }}>Dinner by Lions Club</div>
-                      <div className="text-gray-600">Full course meal included</div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center mb-4">
-                    <span className="text-2xl mr-3">🎵</span>
-                    <div>
-                      <div className="font-bold text-xl" style={{ color: colors.navy }}>Live Music</div>
-                      <div className="text-gray-600">Dance to &ldquo;Decades&rdquo;</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <p className="text-2xl text-purple-600 mb-8">
+              A Night at the Speakeasy
+            </p>
           </div>
 
-          {/* What's Included Section */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
-            <h2 className="text-3xl font-bold text-center mb-8" style={{ color: colors.navy }}>
-              Event Includes
-            </h2>
-            <div className="grid md:grid-cols-4 gap-6">
-              <div className="text-center">
-                <div className="text-4xl mb-3">🍽️</div>
-                <div className="font-semibold" style={{ color: colors.burgundy }}>Gourmet Dinner</div>
-                <div className="text-sm text-gray-600">Prepared by Redwood Empire Lions Club</div>
+          <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12 mb-8">
+            <div className="grid md:grid-cols-2 gap-6 mb-8 text-lg">
+              <div className="flex items-center">
+                <span className="text-3xl mr-3">📅</span>
+                <div>
+                  <div className="font-bold text-gray-900">Saturday, April 11, 2026</div>
+                  <div className="text-gray-600">Evening Event</div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-4xl mb-3">🎵</div>
-                <div className="font-semibold" style={{ color: colors.burgundy }}>Live Dance Music</div>
-                <div className="text-sm text-gray-600">Featuring &ldquo;Decades&rdquo; band</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl mb-3">🍷</div>
-                <div className="font-semibold" style={{ color: colors.burgundy }}>No-Host Bar</div>
-                <div className="text-sm text-gray-600">Full service bar & appetizers</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl mb-3">🎁</div>
-                <div className="font-semibold" style={{ color: colors.burgundy }}>Live & Silent Auctions</div>
-                <div className="text-sm text-gray-600">Amazing items to bid on</div>
+              <div className="flex items-center">
+                <span className="text-3xl mr-3">📍</span>
+                <div>
+                  <div className="font-bold text-gray-900">Carl Purdy Hall</div>
+                  <div className="text-gray-600">Redwood Empire Fairgrounds</div>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Ticket Purchase Section */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
-            <h2 className="text-3xl font-bold text-center mb-8" style={{ color: colors.navy }}>
-              Get Your Tickets
-            </h2>
-            
-            {/* Online Ticket Purchase Coming Soon */}
-            <div className="bg-blue-50 border-2 border-blue-300 rounded-xl p-6 mb-8">
-              <div className="flex items-start gap-3">
-                <span className="text-3xl">🎟️</span>
-                <div>
-                  <h3 className="text-xl font-bold mb-2" style={{ color: colors.navy }}>
-                    Online Ticket Purchase Coming Soon!
-                  </h3>
-                  <p className="text-gray-700 mb-3">
-                    We&apos;re setting up secure online ticket purchasing. In the meantime, you can purchase tickets by:
-                  </p>
-                  <div className="space-y-2 text-gray-700">
-                    <div className="flex items-start gap-2">
-                      <span className="text-blue-600 font-bold">•</span>
-                      <span><strong>Calling:</strong> (707) 462-4343</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-blue-600 font-bold">•</span>
-                      <span><strong>Visiting:</strong> Ukiah Senior Center, 499 Leslie St, Ukiah, CA</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-blue-600 font-bold">•</span>
-                      <span><strong>Sponsorship Tables:</strong> Contact John McCowen at (707) 391-1788</span>
-                    </div>
-                  </div>
+            <div className="border-t border-b border-gray-200 py-6 mb-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+                What&apos;s Included
+              </h2>
+              <div className="grid md:grid-cols-2 gap-4 text-gray-700">
+                <div className="flex items-center">
+                  <span className="mr-2">🍽️</span>
+                  <span>Gourmet dinner by Lions Club</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="mr-2">🎵</span>
+                  <span>Live music by &ldquo;Decades&rdquo; band</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="mr-2">🍷</span>
+                  <span>No-host bar & appetizers</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="mr-2">🎁</span>
+                  <span>Live & silent auctions</span>
                 </div>
               </div>
             </div>
-            
-            <div className="text-center">
-              <div className="mb-8">
-                <div className="text-2xl font-bold mb-4" style={{ color: colors.burgundy }}>
-                  Individual Tickets: $100 each
-                </div>
-                <div className="text-lg text-gray-600 mb-6">
-                  Includes dinner, dancing, and auction participation
-                </div>
-              </div>
-              
-              <div className="p-6 bg-gray-50 rounded-xl">
-                <h3 className="text-xl font-bold mb-4" style={{ color: colors.navy }}>
-                  Sponsor Table Options Available
-                </h3>
-                <div className="text-gray-700 mb-4">
-                  Reserved seating, complimentary wine, and recognition at the event
-                </div>
-                <div className="text-lg font-semibold" style={{ color: colors.burgundy }}>
-                  Contact John McCowen: (707) 391-1788
-                </div>
-              </div>
-            </div>
-          </div>
 
-          {/* About the Cause */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
-            <h2 className="text-3xl font-bold text-center mb-8" style={{ color: colors.navy }}>
-              Supporting Our Community
-            </h2>
-            <div className="max-w-4xl mx-auto text-lg leading-relaxed text-gray-700">
-              <p className="mb-6">
-                For more than 50 years, the Ukiah Senior Center has enhanced the lives of local seniors and disabled adults. 
-                Your ticket purchase directly supports essential community services including:
-              </p>
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div>
-                  <div className="flex items-start mb-3">
-                    <span className="text-green-600 mr-2">✓</span>
-                    <span>Door-through-door transportation services</span>
-                  </div>
-                  <div className="flex items-start mb-3">
-                    <span className="text-green-600 mr-2">✓</span>
-                    <span>Medical appointment transportation</span>
-                  </div>
-                  <div className="flex items-start mb-3">
-                    <span className="text-green-600 mr-2">✓</span>
-                    <span>Outreach services to vulnerable adults</span>
-                  </div>
-                </div>
-                <div>
-                  <div className="flex items-start mb-3">
-                    <span className="text-green-600 mr-2">✓</span>
-                    <span>Dine-in and take-out meal services</span>
-                  </div>
-                  <div className="flex items-start mb-3">
-                    <span className="text-green-600 mr-2">✓</span>
-                    <span>Social, educational, and health programs</span>
-                  </div>
-                  <div className="flex items-start mb-3">
-                    <span className="text-green-600 mr-2">✓</span>
-                    <span>Monthly newsletter and activity calendar</span>
-                  </div>
-                </div>
+            <div className="text-center mb-8">
+              <div className="text-4xl font-bold text-purple-600 mb-2">
+                $100 per ticket
               </div>
-              <p className="text-center">
-                Learn more at <a href="https://www.ukiahseniorcenter.org" className="text-blue-600 hover:underline font-semibold">ukiahseniorcenter.org</a>
+              <p className="text-gray-600">
+                Supports Ukiah Senior Center services
               </p>
             </div>
-          </div>
 
-          {/* Contact Information */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-            <h2 className="text-2xl font-bold mb-6" style={{ color: colors.navy }}>
-              Questions? Contact Us
-            </h2>
-            <div className="space-y-4">
-              <div>
-                <div className="font-bold text-lg" style={{ color: colors.burgundy }}>John McCowen</div>
-                <div className="text-gray-600">Event Chair</div>
-                <div className="text-lg">(707) 391-1788</div>
+            <button
+              onClick={handleBuyTicketsClick}
+              className="w-full group relative bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white rounded-xl p-8 transition-all transform hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-purple-300"
+              type="button"
+            >
+              <div className="flex flex-col items-center">
+                <div className="text-6xl mb-4">🎫</div>
+                <h3 className="text-3xl font-bold mb-3">Buy Tickets Now</h3>
+                <p className="text-purple-100 text-center text-lg">
+                  Secure online payment with credit card
+                </p>
               </div>
-              <div className="border-t pt-4">
-                <div className="font-bold" style={{ color: colors.navy }}>Ukiah Senior Center</div>
-                <div className="text-gray-600">499 Leslie St, Ukiah, CA 95482</div>
-                <div>(707) 462-4343</div>
+              <div className="absolute inset-0 rounded-xl border-4 border-transparent group-hover:border-purple-300 transition-all"></div>
+            </button>
+
+            <div className="mt-8 pt-8 border-t border-gray-200">
+              <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
+                Other Ways to Purchase
+              </h3>
+              <div className="space-y-3 text-gray-700">
+                <div className="flex items-start">
+                  <span className="mr-2">📞</span>
+                  <span>Call: (707) 462-4343</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="mr-2">🏢</span>
+                  <span>Visit: Ukiah Senior Center, 499 Leslie St</span>
+                </div>
+                <div className="flex items-start">
+                  <span className="mr-2">⭐</span>
+                  <span>Table Sponsorships: Contact John McCowen at (707) 391-1788</span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Admin Links (Hidden at bottom) */}
-          <div className="mt-16 text-center">
-            <details className="inline-block">
-              <summary className="text-sm text-gray-400 cursor-pointer hover:text-gray-600">
-                Admin Access
-              </summary>
-              <div className="mt-4 space-x-4">
-                <Link href="/admin" className="text-sm text-blue-600 hover:underline">
-                  Admin Dashboard
-                </Link>
-                <Link href="/auction-letter" className="text-sm text-blue-600 hover:underline">
-                  Auction Letter
-                </Link>
-                <Link href="/qr-codes" className="text-sm text-blue-600 hover:underline">
-                  QR Codes
-                </Link>
-              </div>
-            </details>
+          <div className="text-center text-sm text-gray-500">
+            <a href="https://www.ukiahseniorcenter.org" className="hover:text-gray-700">
+              ukiahseniorcenter.org
+            </a>
           </div>
-
         </div>
       </div>
-    </div>
-  );
+
+      {showZeffyModal && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center p-4"
+          style={{ 
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backdropFilter: 'blur(2px)'
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              handleCloseZeffy()
+            }
+          }}
+        >
+          <div
+            className="max-w-[900px] w-[92vw] rounded-lg shadow-xl ring-1 ring-black/5 relative bg-white flex flex-col"
+            style={{ maxHeight: '90vh' }}
+          >
+            <button
+              ref={closeButtonRef}
+              onClick={handleCloseZeffy}
+              className="absolute top-4 right-4 p-2 rounded-lg hover:bg-neutral-100 transition-colors focus:outline-none focus:ring-2 z-10"
+              aria-label="Close payment modal"
+            >
+              <svg className="w-6 h-6 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="px-6 pt-6 pb-4 border-b border-neutral-200 flex items-center justify-center gap-3">
+              <img 
+                src="/logo.png" 
+                alt="Ukiah Senior Center" 
+                style={{ width: '60px', height: 'auto', display: 'block' }}
+              />
+              <h3 className="text-lg md:text-xl font-['Jost',sans-serif] font-bold text-[#427d78]" style={{ lineHeight: '1.2' }}>
+                An Affair to Remember 2026
+              </h3>
+            </div>
+
+            <div className="px-6 py-3 border-b border-neutral-200">
+              <div className="bg-red-50 border border-red-400 rounded" style={{ padding: '8px 12px' }}>
+                <p className="text-xs text-red-900 font-['Bitter',serif] text-center" style={{ marginBottom: '6px', lineHeight: '1.4' }}>
+                  <strong>⚠️ Set Zeffy Tip to $0</strong> so you don&apos;t pay any fees.
+                </p>
+                <div className="bg-white rounded border border-red-300 flex justify-center items-center" style={{ padding: '6px', overflow: 'hidden' }}>
+                  <img
+                    src="/zero_tip_small.png"
+                    alt="Set Zeffy tip to zero"
+                    className="rounded"
+                    style={{ 
+                      maxWidth: '100%', 
+                      height: 'auto', 
+                      display: 'block'
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="relative flex-1 bg-gray-50" style={{ minHeight: '600px' }}>
+              {isZeffyLoading && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="flex flex-col items-center space-y-4">
+                    <div className="w-12 h-12 border-4 border-neutral-200 rounded-full animate-spin" style={{ borderTopColor: '#427d78' }}></div>
+                    <p className="text-sm text-neutral-600 font-['Bitter',serif]">Loading payment form...</p>
+                  </div>
+                </div>
+              )}
+              <iframe
+                src={zeffyUrl}
+                className="w-full h-full border-0"
+                style={{ minHeight: '600px' }}
+                title="Zeffy payment form for An Affair to Remember 2026"
+                onLoad={() => setIsZeffyLoading(false)}
+                allow="payment"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  )
 }
