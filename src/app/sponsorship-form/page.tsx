@@ -133,8 +133,8 @@ export default function SponsorshipFormPage() {
             I would like to support the Ukiah Senior Center by purchasing tickets and/or being a sponsor.
           </p>
 
-          {/* Integrated Full-Width Table with QR Code */}
-          <div className="integrated-table" style={{ 
+          {/* Sponsorship Table - Full Width */}
+          <div className="sponsorship-table" style={{ 
             marginBottom: '12px',
             border: `1px solid ${colors.neutralStroke}`,
             borderRadius: '0px'
@@ -146,8 +146,8 @@ export default function SponsorshipFormPage() {
               display: 'flex',
               borderBottom: `1px solid ${colors.neutralStroke}`
             }}>
-              {/* Table headers - using same flex values as body */}
-              <div style={{ flex: '2.5', display: 'flex' }}>
+              {/* Table headers */}
+              <div style={{ flex: '1', display: 'flex' }}>
                 <div style={{
                   color: colors.navy,
                   fontWeight: '600',
@@ -187,32 +187,17 @@ export default function SponsorshipFormPage() {
                   fontSize: '11px',
                   padding: '6px 8px',
                   textAlign: 'center',
-                  borderRight: `1px solid ${colors.neutralStroke}`,
                   flex: '0 0 54%'
                 }}>
                   Benefits
                 </div>
               </div>
-              {/* QR section header */}
-              <div style={{
-                flex: '1',
-                color: colors.navy,
-                fontWeight: '600',
-                fontSize: '11px',
-                padding: '6px 8px',
-                textAlign: 'center',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                Online Submission
-              </div>
             </div>
 
             {/* Content rows */}
             <div style={{ display: 'flex' }}>
-              {/* Left: Table content */}
-              <div style={{ flex: '2.5' }}>
+              {/* Table content */}
+              <div style={{ flex: '1' }}>
                 {/* Diamond row */}
                 <div style={{ display: 'flex', borderBottom: `1px solid ${colors.neutralStroke}` }}>
                   <div style={{
@@ -432,37 +417,6 @@ export default function SponsorshipFormPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Right: QR Code Section - WHITE BACKGROUND */}
-              <div style={{ 
-                flex: '1',
-                backgroundColor: colors.white,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '16px 12px',
-                borderBottom: `1px solid ${colors.neutralStroke}`
-              }}>
-                <div style={{
-                  color: colors.navy,
-                  fontWeight: '600',
-                  fontSize: '11px',
-                  marginBottom: '12px',
-                  fontFamily: 'Georgia, serif',
-                  textAlign: 'center',
-                  lineHeight: '1.3'
-                }}>
-                  Submit form and pay<br/>online by scanning code
-                </div>
-                
-                <QRCodeDisplay 
-                  url="https://affairtoremember.ukiahseniorcenter.org/table-sponsors"
-                  title=""
-                  description=""
-                  size={100}
-                />
-              </div>
             </div>
           </div>
 
@@ -574,97 +528,46 @@ export default function SponsorshipFormPage() {
             </div>
           </div>
 
-          {/* Contact Information Table */}
-          <div className="mb-3">
-            <table className="w-full">
-              <tbody>
-                <tr>
-                  <td className="pb-2 pr-4 w-1/2">
-                    <span className="text-sm">Name:</span>
-                    <div className="border-b border-black w-full h-4 mt-1"></div>
-                  </td>
-                  <td className="pb-2 w-1/2">
-                    <span className="text-sm">Address:</span>
-                    <div className="border-b border-black w-full h-4 mt-1"></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="pr-4 w-1/2">
-                    <span className="text-sm">Phone:</span>
-                    <div className="border-b border-black w-full h-4 mt-1"></div>
-                  </td>
-                  <td className="w-1/2">
-                    <span className="text-sm">Email:</span>
-                    <div className="border-b border-black w-full h-4 mt-1"></div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* Payment Information */}
-          <div className="space-y-2 border-t border-gray-300 pt-2">
-            <div>
-              <p className="text-sm font-semibold mb-2">CREDIT CARD: Your credit card information will not be retained after transaction</p>
-              <table className="w-full mb-2">
-                <tbody>
-                  <tr>
-                    <td className="pr-2 w-1/2">
-                      <span className="text-sm">CC#:</span>
-                      <div className="border-b border-black w-full h-4 mt-1"></div>
-                    </td>
-                    <td className="pr-2 w-1/4">
-                      <span className="text-sm">Exp:</span>
-                      <div className="border-b border-black w-full h-4 mt-1"></div>
-                    </td>
-                    <td className="w-1/4">
-                      <span className="text-sm">CVC:</span>
-                      <div className="border-b border-black w-full h-4 mt-1"></div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <table className="w-full">
-                <tbody>
-                  <tr>
-                    <td className="pr-4 w-1/2">
-                      <span className="text-sm">Name on card:</span>
-                      <div className="border-b border-black w-full h-4 mt-1"></div>
-                    </td>
-                    <td className="w-1/2">
-                      <span className="text-sm">Zip:</span>
-                      <div className="border-b border-black w-full h-4 mt-1"></div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+          {/* QR Code Section - Bottom of Form */}
+          <div style={{
+            backgroundColor: colors.lightGray,
+            padding: '20px 16px',
+            marginTop: '20px',
+            borderTop: `2px solid ${colors.navy}`,
+            borderBottom: `2px solid ${colors.navy}`,
+            textAlign: 'center'
+          }}>
+            <div style={{
+              color: colors.navy,
+              fontWeight: '600',
+              fontSize: '14px',
+              marginBottom: '16px',
+              fontFamily: 'Georgia, serif'
+            }}>
+              Complete Your Order Online
             </div>
-
-            <div className="bg-gray-50 p-2 rounded">
-              <p className="text-sm font-semibold mb-1">CHECK:</p>
-              <p className="text-sm leading-tight">
-                Please make checks payable to Ukiah Senior Center and write &ldquo;AATR&rdquo; in the memo.<br/>
-                Mail this form with payment to: Ukiah Senior Center, Attn: AATR, 499 Leslie St., Ukiah, CA 95482
-              </p>
+            
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '12px'
+            }}>
+              <QRCodeDisplay 
+                url="https://affairtoremember.ukiahseniorcenter.org/table-sponsors"
+                title=""
+                description=""
+                size={120}
+              />
             </div>
-          </div>
-
-          {/* Ticket Delivery Options */}
-          <div className="pt-2">
-            <p className="text-sm font-semibold mb-2">Ticket Delivery Options:</p>
-            <div className="flex items-center space-x-6">
-              <label className="flex items-center space-x-2">
-                <span className="text-sm">☐</span>
-                <span className="text-sm">Pick Up @ USC</span>
-              </label>
-              <label className="flex items-center space-x-2">
-                <span className="text-sm">☐</span>
-                <span className="text-sm">Mail</span>
-              </label>
-              <label className="flex items-center space-x-2">
-                <span className="text-sm">☐</span>
-                <span className="text-sm">Will Call</span>
-              </label>
+            
+            <div style={{
+              color: colors.gray,
+              fontSize: '11px',
+              fontFamily: 'Georgia, serif',
+              lineHeight: '1.4'
+            }}>
+              Scan this code to submit your sponsorship form<br/>
+              and complete payment online at any time.
             </div>
           </div>
         </div>
