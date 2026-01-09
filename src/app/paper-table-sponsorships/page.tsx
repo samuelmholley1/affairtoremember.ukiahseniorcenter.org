@@ -966,9 +966,11 @@ export default function PaperTableSponsorshipsPage() {
 
       {/* Print-specific styles */}
       <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
         @media print {
           @page {
-            margin: 0.35in;
+            margin: 0.3in;
             size: letter;
           }
           
@@ -980,9 +982,9 @@ export default function PaperTableSponsorshipsPage() {
           body {
             -webkit-print-color-adjust: exact;
             color-adjust: exact;
-            font-family: Georgia, serif !important;
-            font-size: 11pt;
-            line-height: 1.2;
+            font-family: Montserrat, sans-serif !important;
+            font-size: 12pt;
+            line-height: 1.3;
             margin: 0;
             padding: 0;
           }
