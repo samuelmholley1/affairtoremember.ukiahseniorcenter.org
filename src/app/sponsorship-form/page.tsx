@@ -471,7 +471,7 @@ export default function SponsorshipFormPage() {
             <div className="flex items-center space-x-2">
               <span className="text-sm">#</span>
               <div className="border-b border-black w-14 h-4"></div>
-              <span className="text-sm">Single Tickets @ $100.00 (Card: $104) each; after 3/28/26 $110.00 (Card: $114) each</span>
+              <span className="text-sm">Single Tickets @ $100.00 each; after 3/28/26 $110.00 each</span>
             </div>
 
             <div className="flex items-center space-x-2">
