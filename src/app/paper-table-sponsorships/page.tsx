@@ -64,15 +64,14 @@ export default function PaperTableSponsorshipsPage() {
             border: `1.5px solid ${colors.navy}`,
             fontFamily: 'Montserrat, sans-serif',
             fontSize: '13px',
-            marginBottom: '6px',
-            tableLayout: 'fixed'
+            marginBottom: '6px'
           }}>
             <thead>
               <tr style={{ backgroundColor: colors.lightGray }}>
                 <th style={{ color: colors.navy, fontWeight: '700', fontSize: '13px', padding: '5px 6px', textAlign: 'center', border: `1px solid ${colors.navy}`, width: '6%' }}>☐</th>
                 <th style={{ color: colors.navy, fontWeight: '700', fontSize: '13px', padding: '5px 6px', textAlign: 'center', border: `1px solid ${colors.navy}`, width: '20%' }}>Tier</th>
                 <th style={{ color: colors.navy, fontWeight: '700', fontSize: '13px', padding: '5px 6px', textAlign: 'center', border: `1px solid ${colors.navy}`, width: '16%' }}>Price</th>
-                <th style={{ color: colors.navy, fontWeight: '700', fontSize: '13px', padding: '5px 6px', textAlign: 'left', border: `1px solid ${colors.navy}`, width: '58%' }}>Benefits</th>
+                <th style={{ color: colors.navy, fontWeight: '700', fontSize: '13px', padding: '5px 6px', textAlign: 'center', border: `1px solid ${colors.navy}`, width: '58%' }}>Benefits</th>
               </tr>
             </thead>
             <tbody>
