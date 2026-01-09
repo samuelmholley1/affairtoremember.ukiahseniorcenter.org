@@ -64,7 +64,8 @@ export default function PaperTableSponsorshipsPage() {
             border: `1.5px solid ${colors.navy}`,
             fontFamily: 'Montserrat, sans-serif',
             fontSize: '13px',
-            marginBottom: '6px'
+            marginBottom: '6px',
+            tableLayout: 'fixed'
           }}>
             <thead>
               <tr style={{ backgroundColor: colors.lightGray }}>
@@ -85,7 +86,7 @@ export default function PaperTableSponsorshipsPage() {
                   <td style={{ textAlign: 'center', padding: '4px', border: `1px solid ${colors.neutralStroke}`, fontSize: '16px', fontWeight: '600' }}></td>
                   <td style={{ color: tier.color, fontWeight: '700', fontSize: '13px', padding: '4px 5px', border: `1px solid ${colors.neutralStroke}`, textAlign: 'center' }}>{tier.name}</td>
                   <td style={{ color: tier.color, fontWeight: '700', fontSize: '13px', padding: '4px 5px', border: `1px solid ${colors.neutralStroke}`, textAlign: 'center' }}>{tier.price}</td>
-                  <td style={{ fontSize: '12px', padding: '4px 5px', border: `1px solid ${colors.neutralStroke}`, lineHeight: '1.4' }}>{tier.benefits}</td>
+                  <td style={{ fontSize: '12px', padding: '4px 5px', border: `1px solid ${colors.neutralStroke}`, lineHeight: '1.4', textAlign: 'center', whiteSpace: 'normal', wordWrap: 'break-word', overflow: 'hidden' }}>{tier.benefits}</td>
                 </tr>
               ))}
             </tbody>
