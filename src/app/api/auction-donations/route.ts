@@ -1,27 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { addRowToSheet, generateSubmissionId, getClientIP } from '@/lib/googleSheets'
-
-interface AuctionDonationData {
-  name: string
-  email: string
-  phone: string
-  address: string
-  itemDescription: string
-  estimatedValue: string
-  pickupRequired: string
-  specialInstructions: string
-  contactPreference: string
-  formType: string
-  timestamp: string
-  userAgent: string
-}
+import { sendNotificationEmail, buildAuctionDonationEmail } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
-    const data: AuctionDonationData = await request.json()
-    
+    const formData = await request.formData()
+
+    const name = formData.get('name') as string
+    const email = formData.get('email') as string
+    const phone = formData.get('phone') as string || ''
+    const address = formData.get('address') as string || ''
+    const itemDescription = formData.get('itemDescription') as string
+    const estimatedValue = formData.get('estimatedValue') as string || ''
+    const pickupRequired = formData.get('pickupRequired') as string || 'no'
+    const specialInstructions = formData.get('specialInstructions') as string || ''
+    const contactPreference = formData.get('contactPreference') as string || 'email'
+    const auctionType = formData.get('auctionType') as string || ''
+    const formType = formData.get('formType') as string
+    const userAgent = formData.get('userAgent') as string || ''
+    const photoFile = formData.get('photo') as File | null
+
     // Validate required fields
-    if (!data.name || !data.email || !data.itemDescription) {
+    if (!name || !email || !itemDescription) {
       return NextResponse.json({
         success: false,
         message: 'Missing required fields: name, email, and item description are required',
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate form type
-    if (data.formType !== 'auction-donations') {
+    if (formType !== 'auction-donations') {
       return NextResponse.json({
         success: false,
         message: 'Invalid form type for this endpoint',
@@ -41,38 +41,27 @@ export async function POST(request: NextRequest) {
     const timestamp = new Date()
     const clientIP = getClientIP(request)
 
-    // Temporarily disable validation to test basic functionality
-    // TODO: Re-enable after confirming sheet setup
-    /*
-    const validation = await validateSheetStructure('Auction Donations', EXPECTED_HEADERS)
-    if (!validation.exists) {
-      console.error('Sheet validation failed:', validation.error)
-      return NextResponse.json({
-        success: false,
-        message: 'Google Sheets configuration error. Please contact support.',
-      }, { status: 500 })
-    }
-    */
-
     // Prepare data for Google Sheets
+    // Column O = Auction Type (new column — add header "Auction Type" in column O)
     const rowData = [
       timestamp.toISOString(),                    // A: Timestamp
-      data.name,                                  // B: Name
-      data.email,                                 // C: Email
-      data.phone || '',                           // D: Phone
-      data.address || '',                         // E: Address
-      data.itemDescription,                       // F: Item Description
-      data.estimatedValue || '',                  // G: Estimated Value
-      data.pickupRequired || 'no',                // H: Pickup Required
-      data.specialInstructions || '',             // I: Special Instructions
-      data.contactPreference || 'email',          // J: Contact Preference
+      name,                                       // B: Name
+      email,                                      // C: Email
+      phone,                                      // D: Phone
+      address,                                    // E: Address
+      itemDescription,                            // F: Item Description
+      estimatedValue,                             // G: Estimated Value
+      pickupRequired,                             // H: Pickup Required
+      specialInstructions,                        // I: Special Instructions
+      contactPreference,                          // J: Contact Preference
       submissionId,                               // K: Submission ID
       clientIP,                                   // L: IP Address
-      data.userAgent || '',                       // M: User Agent
-      'Submitted'                                 // N: Status
+      userAgent,                                  // M: User Agent
+      'Submitted',                                // N: Status
+      auctionType,                                // O: Auction Type
     ]
 
-    // Add row to Google Sheets with better error handling
+    // Add row to Google Sheets
     try {
       const result = await addRowToSheet('Auction Donations', rowData)
       console.log('Google Sheets result:', result)
@@ -87,11 +76,55 @@ export async function POST(request: NextRequest) {
       }, { status: 500 })
     }
 
+    // Build photo attachment for email (if provided)
+    let photoAttachment = undefined
+    let hasPhoto = false
+    if (photoFile && photoFile.size > 0) {
+      try {
+        const arrayBuffer = await photoFile.arrayBuffer()
+        const buffer = Buffer.from(arrayBuffer)
+        photoAttachment = [{
+          filename: photoFile.name,
+          content: buffer,
+          contentType: photoFile.type,
+        }]
+        hasPhoto = true
+      } catch (photoErr) {
+        console.error('Error processing photo:', photoErr)
+      }
+    }
+
+    // Send notification email
+    const emailHtml = buildAuctionDonationEmail({
+      submissionId,
+      timestamp: timestamp.toISOString(),
+      name,
+      email,
+      phone,
+      address,
+      itemDescription,
+      estimatedValue,
+      pickupRequired,
+      specialInstructions,
+      contactPreference,
+      auctionType,
+      hasPhoto,
+      clientIP,
+      userAgent,
+    })
+
+    await sendNotificationEmail({
+      subject: `[New Auction Donation] ${name} — ${auctionType || 'Type not specified'}`,
+      html: emailHtml,
+      attachments: photoAttachment,
+    })
+
     // Log successful submission
     console.log('Auction donation submitted successfully:', {
       submissionId,
-      donor: data.name,
-      email: data.email,
+      donor: name,
+      email,
+      auctionType,
       timestamp: timestamp.toISOString()
     })
 
@@ -107,7 +140,6 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error processing auction donation:', error)
 
-    // Return error response
     return NextResponse.json({
       success: false,
       message: 'Error processing auction donation submission',

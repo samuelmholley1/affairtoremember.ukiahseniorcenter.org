@@ -12,6 +12,7 @@ interface AuctionDonationFormData {
   pickupRequired: string
   specialInstructions: string
   contactPreference: string
+  auctionType: string[]
 }
 
 interface SubmissionState {
@@ -31,8 +32,12 @@ export default function AuctionDonationForm() {
     estimatedValue: '',
     pickupRequired: 'no',
     specialInstructions: '',
-    contactPreference: 'email'
+    contactPreference: 'email',
+    auctionType: []
   })
+
+  const [photo, setPhoto] = useState<File | null>(null)
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null)
 
   const [submissionState, setSubmissionState] = useState<SubmissionState>({
     isSubmitting: false,
@@ -41,11 +46,39 @@ export default function AuctionDonationForm() {
     submissionId: null
   })
 
-  const handleInputChange = (field: keyof AuctionDonationFormData, value: string) => {
+  const handleInputChange = (field: keyof AuctionDonationFormData, value: string | string[]) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }))
+  }
+
+  const handleAuctionTypeChange = (type: string, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      auctionType: checked
+        ? [...prev.auctionType, type]
+        : prev.auctionType.filter(t => t !== type)
+    }))
+  }
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      if (file.size > 10 * 1024 * 1024) {
+        alert('Photo must be under 10 MB')
+        return
+      }
+      setPhoto(file)
+      const reader = new FileReader()
+      reader.onloadend = () => setPhotoPreview(reader.result as string)
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const removePhoto = () => {
+    setPhoto(null)
+    setPhotoPreview(null)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -59,24 +92,30 @@ export default function AuctionDonationForm() {
     })
 
     try {
-      // Prepare data for Google Sheets
-      const submissionData = {
-        ...formData,
-        formType: 'auction-donations',
-        timestamp: new Date().toISOString(),
-        ipAddress: '', // Could be populated client-side if needed
-        userAgent: navigator.userAgent
+      const body = new FormData()
+      body.append('name', formData.name)
+      body.append('email', formData.email)
+      body.append('phone', formData.phone)
+      body.append('address', formData.address)
+      body.append('itemDescription', formData.itemDescription)
+      body.append('estimatedValue', formData.estimatedValue)
+      body.append('pickupRequired', formData.pickupRequired)
+      body.append('specialInstructions', formData.specialInstructions)
+      body.append('contactPreference', formData.contactPreference)
+      body.append('auctionType', formData.auctionType.join(', '))
+      body.append('formType', 'auction-donations')
+      body.append('timestamp', new Date().toISOString())
+      body.append('userAgent', navigator.userAgent)
+
+      if (photo) {
+        body.append('photo', photo)
       }
 
-      // Use the new Google Sheets API endpoint
       const API_URL = process.env.NEXT_PUBLIC_AUCTION_API_URL || '/api/auction-donations'
       
       const response = await fetch(API_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(submissionData)
+        body,
       })
 
       const result = await response.json()
@@ -126,6 +165,7 @@ Address: ${formData.address}
 
 ITEM DETAILS
 ------------
+Auction Type: ${formData.auctionType.join(', ') || 'Not specified'}
 Description: ${formData.itemDescription}
 Estimated Value: ${formData.estimatedValue}
 Pickup Required: ${formData.pickupRequired}
@@ -223,7 +263,6 @@ Subject: Auction Donation Submission (Failed Online Submission)
 
             {/* Action Buttons */}
             <div className="space-y-3">
-              {/* Retry Button */}
               <button
                 type="button"
                 onClick={retrySubmission}
@@ -235,7 +274,6 @@ Subject: Auction Donation Submission (Failed Online Submission)
                 Try Submitting Again
               </button>
 
-              {/* Download Readable Backup */}
               <button
                 type="button"
                 onClick={downloadReadableBackup}
@@ -247,7 +285,6 @@ Subject: Auction Donation Submission (Failed Online Submission)
                 Download Your Information (Text File)
               </button>
 
-              {/* Email Contact Info */}
               <div className="bg-white border-2 border-red-200 rounded-lg p-4">
                 <p className="text-sm text-gray-700 mb-2">
                   <strong>Alternative:</strong> Email your information directly to:
@@ -267,7 +304,6 @@ Subject: Auction Donation Submission (Failed Online Submission)
                 </p>
               </div>
 
-              {/* Phone Contact */}
               <div className="bg-yellow-50 border border-yellow-200 rounded p-3 text-sm">
                 <p className="text-gray-700">
                   <strong>Or call us:</strong> <a href="tel:7074624343" className="text-blue-600 hover:text-blue-800 font-semibold">(707) 462-4343</a>
@@ -309,6 +345,13 @@ Subject: Auction Donation Submission (Failed Online Submission)
                   onChange={(e) => handleInputChange('email', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
+                <button
+                  type="button"
+                  onClick={() => handleInputChange('email', 'support@seniorctr.org')}
+                  className="mt-1 text-xs text-blue-600 hover:text-blue-800 underline"
+                >
+                  No email? Fill support@seniorctr.org
+                </button>
               </div>
               
               <div>
@@ -346,6 +389,34 @@ Subject: Auction Donation Submission (Failed Online Submission)
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Item Information</h2>
             <div className="space-y-6">
+
+              {/* Auction Type Checkboxes */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Auction Type *
+                </label>
+                <div className="flex gap-6">
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={formData.auctionType.includes('Live')}
+                      onChange={(e) => handleAuctionTypeChange('Live', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <span className="ml-2 text-sm text-gray-700">Live Auction</span>
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="checkbox"
+                      checked={formData.auctionType.includes('Silent')}
+                      onChange={(e) => handleAuctionTypeChange('Silent', e.target.checked)}
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    />
+                    <span className="ml-2 text-sm text-gray-700">Silent Auction</span>
+                  </label>
+                </div>
+              </div>
+
               <div>
                 <label htmlFor="itemDescription" className="block text-sm font-medium text-gray-700 mb-2">
                   Item Description *
@@ -405,6 +476,40 @@ Subject: Auction Donation Submission (Failed Online Submission)
                     </label>
                   </div>
                 </div>
+              </div>
+
+              {/* Photo Upload */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Photo of Item (optional)
+                </label>
+                <p className="text-xs text-gray-500 mb-2">Upload a photo of the item you&apos;re donating. Max 10 MB. This will be emailed to event coordinators only (not stored publicly).</p>
+                {!photoPreview ? (
+                  <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                    <svg className="w-8 h-8 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span className="text-sm text-gray-500">Click to upload photo</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handlePhotoChange}
+                      className="hidden"
+                    />
+                  </label>
+                ) : (
+                  <div className="relative inline-block">
+                    <img src={photoPreview} alt="Item preview" className="max-h-48 rounded-lg border border-gray-200" />
+                    <button
+                      type="button"
+                      onClick={removePhoto}
+                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600"
+                    >
+                      ×
+                    </button>
+                    <p className="text-xs text-gray-500 mt-1">{photo?.name}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

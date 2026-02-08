@@ -616,6 +616,13 @@ Subject: Table Sponsorship Submission (Failed Online Submission)
                   onChange={(e) => handleInputChange('email', e.target.value)}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
+                <button
+                  type="button"
+                  onClick={() => handleInputChange('email', 'support@seniorctr.org')}
+                  className="mt-1 text-xs text-blue-600 hover:text-blue-800 underline"
+                >
+                  No email? Fill support@seniorctr.org
+                </button>
               </div>
               
               <div>

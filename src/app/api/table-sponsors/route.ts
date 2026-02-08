@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { addRowToSheet, generateSubmissionId, getClientIP } from '@/lib/googleSheets'
+import { sendNotificationEmail, buildSponsorshipEmail } from '@/lib/email'
 
 interface SponsorshipData {
   sponsorshipLevel: string
@@ -115,6 +116,35 @@ export async function POST(request: NextRequest) {
           'Sheet integration error'
       }, { status: 500 })
     }
+
+    // Send notification email
+    const emailHtml = buildSponsorshipEmail({
+      submissionId,
+      timestamp: timestamp.toISOString(),
+      sponsorshipLevel: data.sponsorshipLevel || '',
+      sponsorshipAmount,
+      ticketQuantity: data.ticketQuantity || 0,
+      ticketPrice: data.ticketPrice || 0,
+      ticketTotal,
+      monetaryDonation,
+      silentAuctionDonation: data.silentAuctionDonation || '',
+      totalAmount,
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      address: data.address || '',
+      paymentMethod: data.paymentMethod || '',
+      ticketDelivery: data.ticketDelivery || '',
+      paymentStatus: data.paymentStatus || 'Submitted',
+      clientIP,
+      userAgent: data.userAgent || '',
+      referrer: data.referrer || '',
+    })
+
+    await sendNotificationEmail({
+      subject: `[New Table Sponsorship] ${data.name} — $${totalAmount.toLocaleString()}`,
+      html: emailHtml,
+    })
 
     // Log successful submission
     console.log('Table sponsorship submitted successfully:', {
