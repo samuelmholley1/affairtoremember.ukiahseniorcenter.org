@@ -76,6 +76,28 @@ export const addRowToSheet = async (
   }
 }
 
+// Read all rows from a sheet tab (skipping header row)
+export const getSheetRows = async (tabName: string) => {
+  const sheets = await getGoogleSheetsInstance()
+  const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID
+
+  if (!spreadsheetId) {
+    throw new Error('GOOGLE_SHEETS_SPREADSHEET_ID environment variable is required')
+  }
+
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId,
+    range: `${tabName}!A:ZZ`,
+  })
+
+  const allRows = response.data.values || []
+  // First row is headers, rest is data
+  const headers = allRows[0] || []
+  const dataRows = allRows.slice(1)
+
+  return { headers, dataRows }
+}
+
 // Validate that the sheet exists and has the correct structure
 export const validateSheetStructure = async (tabName: string, expectedHeaders: string[]) => {
   try {
