@@ -50,6 +50,7 @@ export function buildAuctionDonationEmail(data: {
   email: string
   phone: string
   address: string
+  itemName: string
   itemDescription: string
   estimatedValue: string
   pickupRequired: string
@@ -79,6 +80,7 @@ export function buildAuctionDonationEmail(data: {
         <h2 style="color: #1e40af; border-bottom: 2px solid #1e40af; padding-bottom: 8px; margin-top: 20px;">Item Details</h2>
         <table style="width: 100%; border-collapse: collapse;">
           <tr><td style="padding: 6px 0; font-weight: bold; width: 160px;">Auction Type:</td><td><strong>${data.auctionType || 'Not specified'}</strong></td></tr>
+          <tr><td style="padding: 6px 0; font-weight: bold;">Item Name:</td><td><strong>${data.itemName || 'Not provided'}</strong></td></tr>
           <tr><td style="padding: 6px 0; font-weight: bold;">Description:</td><td>${data.itemDescription}</td></tr>
           <tr><td style="padding: 6px 0; font-weight: bold;">Estimated Value:</td><td>${data.estimatedValue ? '$' + data.estimatedValue : 'Not provided'}</td></tr>
           <tr><td style="padding: 6px 0; font-weight: bold;">Pickup Required:</td><td>${data.pickupRequired}</td></tr>

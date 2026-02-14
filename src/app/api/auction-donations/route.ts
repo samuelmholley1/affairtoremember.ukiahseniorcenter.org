@@ -10,6 +10,7 @@ export async function POST(request: NextRequest) {
     const email = formData.get('email') as string
     const phone = formData.get('phone') as string || ''
     const address = formData.get('address') as string || ''
+    const itemName = formData.get('itemName') as string || ''
     const itemDescription = formData.get('itemDescription') as string
     const estimatedValue = formData.get('estimatedValue') as string || ''
     const pickupRequired = formData.get('pickupRequired') as string || 'no'
@@ -42,23 +43,23 @@ export async function POST(request: NextRequest) {
     const clientIP = getClientIP(request)
 
     // Prepare data for Google Sheets
-    // Column O = Auction Type (new column — add header "Auction Type" in column O)
     const rowData = [
       timestamp.toISOString(),                    // A: Timestamp
       name,                                       // B: Name
       email,                                      // C: Email
       phone,                                      // D: Phone
       address,                                    // E: Address
-      itemDescription,                            // F: Item Description
-      estimatedValue,                             // G: Estimated Value
-      pickupRequired,                             // H: Pickup Required
-      specialInstructions,                        // I: Special Instructions
-      contactPreference,                          // J: Contact Preference
-      submissionId,                               // K: Submission ID
-      clientIP,                                   // L: IP Address
-      userAgent,                                  // M: User Agent
-      'Submitted',                                // N: Status
-      auctionType,                                // O: Auction Type
+      itemName,                                   // F: Item Name
+      itemDescription,                            // G: Item Description
+      estimatedValue,                             // H: Estimated Value
+      pickupRequired,                             // I: Pickup Required
+      specialInstructions,                        // J: Special Instructions
+      contactPreference,                          // K: Contact Preference
+      submissionId,                               // L: Submission ID
+      clientIP,                                   // M: IP Address
+      userAgent,                                  // N: User Agent
+      'Submitted',                                // O: Status
+      auctionType,                                // P: Auction Type
     ]
 
     // Add row to Google Sheets
@@ -102,6 +103,7 @@ export async function POST(request: NextRequest) {
       email,
       phone,
       address,
+      itemName,
       itemDescription,
       estimatedValue,
       pickupRequired,

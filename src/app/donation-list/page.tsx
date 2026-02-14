@@ -68,8 +68,7 @@ export default function DonationListPage() {
         [
           d['Name'],
           d['Email'],
-          d['Phone'],
-          d['Item Description'],
+          d['Phone'],          d['Item Name'],          d['Item Description'],
           d['Estimated Value'],
           d['Special Instructions'],
           d['Auction Type'],
@@ -290,7 +289,8 @@ export default function DonationListPage() {
                     { key: 'Name', label: 'Donor' },
                     { key: 'Email', label: 'Email' },
                     { key: 'Phone', label: 'Phone' },
-                    { key: 'Item Description', label: 'Item' },
+                    { key: 'Item Name', label: 'Item Name' },
+                    { key: 'Item Description', label: 'Description' },
                     { key: 'Estimated Value', label: 'Est. Value' },
                     { key: 'Auction Type', label: 'Type' },
                     { key: 'Pickup Required', label: 'Pickup' },
@@ -339,6 +339,9 @@ export default function DonationListPage() {
                             {d['Phone']}
                           </a>
                         )}
+                      </td>
+                      <td className="px-3 py-3 text-sm font-medium whitespace-nowrap" style={{ color: colors.black }}>
+                        {d['Item Name'] || '—'}
                       </td>
                       <td className="px-3 py-3 text-sm max-w-xs" style={{ color: colors.black }}>
                         <div className="line-clamp-3">{d['Item Description']}</div>

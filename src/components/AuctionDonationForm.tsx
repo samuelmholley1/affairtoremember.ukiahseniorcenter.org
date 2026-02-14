@@ -7,6 +7,7 @@ interface AuctionDonationFormData {
   email: string
   phone: string
   address: string
+  itemName: string
   itemDescription: string
   estimatedValue: string
   pickupRequired: string
@@ -28,6 +29,7 @@ export default function AuctionDonationForm() {
     email: '',
     phone: '',
     address: '',
+    itemName: '',
     itemDescription: '',
     estimatedValue: '',
     pickupRequired: 'no',
@@ -97,6 +99,7 @@ export default function AuctionDonationForm() {
       body.append('email', formData.email)
       body.append('phone', formData.phone)
       body.append('address', formData.address)
+      body.append('itemName', formData.itemName)
       body.append('itemDescription', formData.itemDescription)
       body.append('estimatedValue', formData.estimatedValue)
       body.append('pickupRequired', formData.pickupRequired)
@@ -166,6 +169,7 @@ Address: ${formData.address}
 ITEM DETAILS
 ------------
 Auction Type: ${formData.auctionType.join(', ') || 'Not specified'}
+Item Name: ${formData.itemName}
 Description: ${formData.itemDescription}
 Estimated Value: ${formData.estimatedValue}
 Pickup Required: ${formData.pickupRequired}
@@ -415,6 +419,21 @@ Subject: Auction Donation Submission (Failed Online Submission)
                     <span className="ml-2 text-sm text-gray-700">Silent Auction</span>
                   </label>
                 </div>
+              </div>
+
+              <div>
+                <label htmlFor="itemName" className="block text-sm font-medium text-gray-700 mb-2">
+                  Item Name *
+                </label>
+                <input
+                  type="text"
+                  id="itemName"
+                  required
+                  value={formData.itemName}
+                  onChange={(e) => handleInputChange('itemName', e.target.value)}
+                  placeholder="e.g. Golf for 4, Gift Basket, Tractor Rental..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
               </div>
 
               <div>
