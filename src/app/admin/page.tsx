@@ -204,6 +204,19 @@ export default function AdminPage() {
                 Letter for auction donations
               </p>
             </Link>
+            
+            <Link 
+              href="/donation-list"
+              className="block p-4 border rounded-lg hover:shadow-md transition-shadow"
+              style={{ borderColor: colors.neutralStroke }}
+            >
+              <h3 className="font-semibold" style={{ color: colors.burgundy }}>
+                Donation List
+              </h3>
+              <p className="text-sm" style={{ color: colors.gray }}>
+                View all auction donations (Live / Silent)
+              </p>
+            </Link>
           </div>
         </div>
 

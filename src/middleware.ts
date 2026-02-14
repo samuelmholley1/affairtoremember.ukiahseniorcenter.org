@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
   // Protected routes that require admin authentication
-  const protectedRoutes = ['/qr-codes', '/sponsorship-form', '/auction-letter']
+  const protectedRoutes = ['/qr-codes', '/sponsorship-form', '/auction-letter', '/donation-list']
   
   const isProtectedRoute = protectedRoutes.some(route => 
     request.nextUrl.pathname.startsWith(route)
@@ -23,5 +23,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/qr-codes/:path*', '/sponsorship-form/:path*', '/auction-letter/:path*']
+  matcher: ['/qr-codes/:path*', '/sponsorship-form/:path*', '/auction-letter/:path*', '/donation-list/:path*']
 }
