@@ -146,6 +146,80 @@ export const generateSubmissionId = (prefix: string = 'sub'): string => {
   return `${prefix}-${timestamp}-${random}`
 }
 
+// Delete rows from a sheet by matching submission IDs
+export const deleteRowsBySubmissionIds = async (
+  tabName: string,
+  submissionIds: string[]
+) => {
+  const sheets = await getGoogleSheetsInstance()
+  const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID
+
+  if (!spreadsheetId) {
+    throw new Error('GOOGLE_SHEETS_SPREADSHEET_ID environment variable is required')
+  }
+
+  // Get all data to find row indices
+  const response = await sheets.spreadsheets.values.get({
+    spreadsheetId,
+    range: `${tabName}!A:ZZ`,
+  })
+
+  const allRows = response.data.values || []
+  const headers = allRows[0] || []
+  const submissionIdCol = headers.findIndex(
+    (h: string) => h.toLowerCase().includes('submission id')
+  )
+
+  if (submissionIdCol === -1) {
+    throw new Error('Could not find Submission ID column')
+  }
+
+  // Get the sheet's numeric ID (gid) for batchUpdate
+  const spreadsheet = await sheets.spreadsheets.get({ spreadsheetId })
+  const sheetMeta = spreadsheet.data.sheets?.find(
+    (s) => s.properties?.title === tabName
+  )
+  const sheetId = sheetMeta?.properties?.sheetId
+  if (sheetId === undefined) {
+    throw new Error(`Sheet tab "${tabName}" not found`)
+  }
+
+  // Find matching row indices (1-indexed, header is row 0)
+  const idsSet = new Set(submissionIds)
+  const rowIndicesToDelete: number[] = []
+  for (let i = 1; i < allRows.length; i++) {
+    const id = allRows[i][submissionIdCol]
+    if (id && idsSet.has(id)) {
+      rowIndicesToDelete.push(i)
+    }
+  }
+
+  if (rowIndicesToDelete.length === 0) {
+    return { deleted: 0 }
+  }
+
+  // Delete from bottom to top so indices don't shift
+  rowIndicesToDelete.sort((a, b) => b - a)
+
+  const requests = rowIndicesToDelete.map((rowIndex) => ({
+    deleteDimension: {
+      range: {
+        sheetId,
+        dimension: 'ROWS' as const,
+        startIndex: rowIndex,
+        endIndex: rowIndex + 1,
+      },
+    },
+  }))
+
+  await sheets.spreadsheets.batchUpdate({
+    spreadsheetId,
+    requestBody: { requests },
+  })
+
+  return { deleted: rowIndicesToDelete.length }
+}
+
 // Helper to get client IP address (for logging purposes)
 export const getClientIP = (request: Request): string => {
   const forwarded = request.headers.get('x-forwarded-for')
